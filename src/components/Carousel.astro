@@ -1,0 +1,38 @@
+﻿---
+---
+
+<div class="relative flex items-center gap-3">
+  <button
+    id="carousel-prev"
+    aria-label="Precedent"
+    class="shrink-0 w-10 h-10 rounded-full border border-white/30 flex items-center justify-center text-white hover:border-rose hover:text-rose transition-colors"
+  >
+    &#8592;
+  </button>
+
+  <div
+    id="carousel-viewport"
+    class="flex-1 overflow-x-auto flex gap-8 snap-x snap-mandatory items-center py-4"
+    style="scrollbar-width: none; -ms-overflow-style: none;"
+  >
+    <slot />
+  </div>
+
+  <button
+    id="carousel-next"
+    aria-label="Suivant"
+    class="shrink-0 w-10 h-10 rounded-full border border-white/30 flex items-center justify-center text-white hover:border-rose hover:text-rose transition-colors"
+  >
+    &#8594;
+  </button>
+</div>
+
+<script>
+  const viewport = document.getElementById('carousel-viewport');
+  document.getElementById('carousel-prev')?.addEventListener('click', () => {
+    viewport?.scrollBy({ left: -200, behavior: 'smooth' });
+  });
+  document.getElementById('carousel-next')?.addEventListener('click', () => {
+    viewport?.scrollBy({ left: 200, behavior: 'smooth' });
+  });
+</script>

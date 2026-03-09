@@ -1,0 +1,8 @@
+﻿---
+const { title, subtitle = '', class: className = '' } = Astro.props;
+---
+
+<div class={`text-center ${className}`}>
+  {subtitle && <p class="text-sm uppercase tracking-[0.2em] text-white/60 mb-2">{subtitle}</p>}
+  <h2 class="text-4xl md:text-5xl font-black uppercase leading-tight">{title}</h2>
+</div>

@@ -1,0 +1,57 @@
+﻿---
+import { Image } from 'astro:assets';
+import persona from '../assets/img/persona.svg';
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-black px-4 py-3 flex items-center justify-between">
+  <a
+    href="#billetterie"
+    class="flex items-center gap-2 bg-[#39FF9F] text-black font-bold text-xs px-4 py-2 rounded-full uppercase tracking-wide"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+      <path d="M16 2l-4 5-4-5"/>
+    </svg>
+    BILLETTERIE
+  </a>
+
+  <div class="flex items-center gap-4">
+    <a href="/connexion" aria-label="Mon compte">
+      <Image src={persona} alt="Compte" width={28} height={28} />
+    </a>
+    <button id="menu-toggle" aria-label="Ouvrir le menu" class="flex flex-col justify-center gap-[5px]">
+      <span class="block w-6 h-[2px] bg-white"></span>
+      <span class="block w-6 h-[2px] bg-white"></span>
+      <span class="block w-6 h-[2px] bg-white"></span>
+    </button>
+  </div>
+</header>
+
+<div id="nav-overlay" class="fixed inset-0 z-40 bg-black hidden flex-col items-center justify-center gap-8">
+  <button id="menu-close" aria-label="Fermer le menu" class="absolute top-4 right-4 text-white text-4xl leading-none">&times;</button>
+  <nav class="flex flex-col items-center gap-8 text-2xl font-black uppercase">
+    <a href="/" class="hover:text-rose transition-colors">Accueil</a>
+    <a href="/programmation" class="hover:text-rose transition-colors">Programmation</a>
+    <a href="/scenes" class="hover:text-rose transition-colors">Scenes</a>
+    <a href="/artistes" class="hover:text-rose transition-colors">Artistes</a>
+    <a href="/festival" class="hover:text-rose transition-colors">Festival</a>
+    <a href="/infos" class="hover:text-rose transition-colors">Infos pratiques</a>
+    <a href="/contact" class="hover:text-rose transition-colors">Contact</a>
+  </nav>
+</div>
+
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const close = document.getElementById('menu-close');
+  const overlay = document.getElementById('nav-overlay');
+
+  toggle?.addEventListener('click', () => {
+    overlay?.classList.remove('hidden');
+    overlay?.classList.add('flex');
+  });
+
+  close?.addEventListener('click', () => {
+    overlay?.classList.add('hidden');
+    overlay?.classList.remove('flex');
+  });
+</script>
