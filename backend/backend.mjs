@@ -70,3 +70,30 @@ export async function upsertRecord(type, data, id = null) {
         return record;
     }
 }
+
+
+// Commande utilisateur 
+
+// Connecte un utilisateur avec son email et son mot de passe
+// Retourne les données de l'utilisateur connecté + le token
+export async function login(email, password) {
+    const authData = await pb.collection('users').authWithPassword(email, password);
+    return authData;
+}
+
+// Déconnecte l'utilisateur en effaçant le token de session
+export async function logout() {
+    pb.authStore.clear();
+}
+
+// Crée un nouveau compte utilisateur
+// data doit contenir : email, password, passwordConfirm (et optionnellement name)
+export async function register(data) {
+    const record = await pb.collection('users').create(data);
+    return record;
+}
+
+// Retourne true si un utilisateur est actuellement connecté
+export async function isLoggedIn() {
+    return pb.authStore.isValid;
+}

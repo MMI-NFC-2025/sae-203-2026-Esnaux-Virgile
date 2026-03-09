@@ -6,7 +6,11 @@ import {
     infoScene,
     getArtistesByScene,
     getArtistesBySceneName,
-    upsertRecord
+    upsertRecord,
+    login,
+    logout,
+    register,
+    isLoggedIn
 } from './backend.mjs';
 
 /*
@@ -104,6 +108,39 @@ try {
         nom_scene: 'Scène Modifiée'
     }, 'ID_SCENE_ICI');
     console.log(sceneModifiee);
+} catch (e) {
+    console.error(e);
+}
+
+
+
+// Test : enregistrement d'un utilisateur / login / logout 
+
+
+try {
+    const user = await register('testuser', 'password123');
+    console.log('Utilisateur enregistré :', user);
+} catch (e) {
+    console.error(e);
+}
+
+try {
+    const loginResult = await login('testuser', 'password123');
+    console.log('Résultat de la connexion :', loginResult);
+} catch (e) {
+    console.error(e);
+}
+
+try {
+    const loggedIn = await isLoggedIn();
+    console.log('Utilisateur connecté :', loggedIn);
+} catch (e) {
+    console.error(e);
+}
+
+try {
+    await logout();
+    console.log('Utilisateur déconnecté');
 } catch (e) {
     console.error(e);
 }
