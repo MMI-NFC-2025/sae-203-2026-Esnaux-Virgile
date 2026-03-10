@@ -10,139 +10,190 @@ import descImg from "../assets/img/accueil_description_img.avif";
 let artistes: any[] = [];
 let partenaires: any[] = [];
 try {
-  [artistes, partenaires] = await Promise.all([
-    pb.collection('artistes').getFullList({ sort: 'name' }),
-    pb.collection('partenaires').getFullList(),
-  ]);
+	[artistes, partenaires] = await Promise.all([
+		pb.collection("artistes").getFullList({ sort: "name" }),
+		pb.collection("partenaires").getFullList(),
+	]);
 } catch (e) {
-  console.error('Erreur PocketBase:', e);
+	console.error("Erreur PocketBase:", e);
 }
 
 // Grouper les artistes par lignes de ~4 pour affichage alternant
 const rows = [];
 for (let i = 0; i < artistes.length; i += 4) {
-  rows.push(artistes.slice(i, i + 4));
+	rows.push(artistes.slice(i, i + 4));
 }
 ---
 
 <Layout title="LUMIMIX 2026 - Accueil">
+	<!-- ——— HERO ——— -->
+	<section class="bg-black text-white text-center px-4 pt-10 pb-12">
+		<p
+			class="text-rose font-bold italic text-sm uppercase tracking-widest mb-1"
+		>
+			Festival 2026
+		</p>
+		<h1
+			class="text-7xl md:text-9xl font-black italic uppercase leading-none mb-2"
+		>
+			LUMIMIX
+		</h1>
+		<p
+			class="text-xs md:text-sm uppercase tracking-[0.18em] text-white/80 mb-8"
+		>
+			OSE LA LUMIÈRE ET OSE LE SON
+		</p>
 
-  <!-- ——— HERO ——— -->
-  <section class="bg-black text-white text-center px-4 pt-10 pb-12">
-    <p class="text-rose font-bold italic text-sm uppercase tracking-widest mb-1">Festival 2026</p>
-    <h1 class="text-7xl md:text-9xl font-black italic uppercase leading-none mb-2">LUMIMIX</h1>
-    <p class="text-xs md:text-sm uppercase tracking-[0.18em] text-white/80 mb-8">OSE LA LUMIÈRE ET OSE LE SON</p>
+		<div class="max-w-xs mx-auto mb-8">
+			<img
+				src={heroGif?.src ?? heroGif}
+				alt="Lumimix festival — animation"
+				class="w-full h-auto"
+			/>
+		</div>
 
-    <div class="max-w-xs mx-auto mb-8">
-      <img
-        src={heroGif?.src ?? heroGif}
-        alt="Lumimix festival — animation"
-        class="w-full h-auto"
-      />
-    </div>
+		<div class="flex justify-center items-start gap-8 mb-6">
+			<div>
+				<p class="text-6xl md:text-7xl font-black leading-none">07</p>
+				<p class="text-xs font-bold uppercase tracking-[0.2em] mt-1">
+					AOÛT
+				</p>
+			</div>
+			<div
+				class="text-5xl md:text-6xl font-thin self-center text-white/40"
+			>
+				|
+			</div>
+			<div>
+				<p class="text-6xl md:text-7xl font-black leading-none">08</p>
+				<p class="text-xs font-bold uppercase tracking-[0.2em] mt-1">
+					AOÛT
+				</p>
+			</div>
+		</div>
 
-    <div class="flex justify-center items-start gap-8 mb-6">
-      <div>
-        <p class="text-6xl md:text-7xl font-black leading-none">07</p>
-        <p class="text-xs font-bold uppercase tracking-[0.2em] mt-1">AOÛT</p>
-      </div>
-      <div class="text-5xl md:text-6xl font-thin self-center text-white/40">|</div>
-      <div>
-        <p class="text-6xl md:text-7xl font-black leading-none">08</p>
-        <p class="text-xs font-bold uppercase tracking-[0.2em] mt-1">AOÛT</p>
-      </div>
-    </div>
+		<p class="text-xs uppercase tracking-[0.35em] text-white/60 mb-8">
+			DJ &nbsp;&nbsp; ELECTRO &nbsp;&nbsp; RAGGAE
+		</p>
 
-    <p class="text-xs uppercase tracking-[0.35em] text-white/60 mb-8">
-      DJ &nbsp;&nbsp; ELECTRO &nbsp;&nbsp; RAGGAE
-    </p>
+		<p class="text-lg md:text-xl font-black uppercase">
+			PRESQU'ÎLE DE MALSAUCY
+		</p>
+		<p class="text-sm uppercase tracking-wider text-white/50 mt-1">
+			BELFORT
+		</p>
+	</section>
 
-    <p class="text-lg md:text-xl font-black uppercase">PRESQU'ÎLE DE MALSAUCY</p>
-    <p class="text-sm uppercase tracking-wider text-white/50 mt-1">BELFORT</p>
-  </section>
+	<!-- ——— PROGRAMMATION ——— -->
+	<section class="bg-black text-white py-12 px-4">
+		<div class="text-center mb-6">
+			<p class="text-sm uppercase tracking-[0.2em] text-white/40 mb-1">
+				2026
+			</p>
+			<div class="flex items-center justify-center gap-4">
+				<h2 class="text-4xl md:text-5xl font-black uppercase">
+					PROGRAMMATION
+				</h2>
+				<a
+					href="/programmation"
+					aria-label="Voir la programmation complète"
+					class="shrink-0 w-12 h-12 rounded-full bg-rose flex items-center justify-center text-white font-black text-xl"
+				>
+					^
+				</a>
+			</div>
+		</div>
 
-  <!-- ——— PROGRAMMATION ——— -->
-  <section class="bg-black text-white py-12 px-4">
-    <div class="text-center mb-6">
-      <p class="text-sm uppercase tracking-[0.2em] text-white/40 mb-1">2026</p>
-      <div class="flex items-center justify-center gap-4">
-        <h2 class="text-4xl md:text-5xl font-black uppercase">PROGRAMMATION</h2>
-        <a
-          href="/programmation"
-          aria-label="Voir la programmation complète"
-          class="shrink-0 w-12 h-12 rounded-full bg-rose flex items-center justify-center text-white font-black text-xl"
-        >
-          ^
-        </a>
-      </div>
-    </div>
+		<div class="max-w-2xl mx-auto mb-10">
+			{
+				rows.length > 0 ? (
+					rows.map((row, i) => (
+						<p
+							class={`text-sm md:text-base font-bold uppercase leading-loose ${i % 2 === 0 ? "text-white" : "text-rose"}`}
+						>
+							{row.map((a) => a.name).join("  •  ")}
+						</p>
+					))
+				) : (
+					<p class="text-center text-white/40 py-8">
+						Programmation bientôt disponible
+					</p>
+				)
+			}
+		</div>
 
-    <div class="max-w-2xl mx-auto mb-10">
-      {rows.length > 0 ? rows.map((row, i) => (
-        <p class={`text-sm md:text-base font-bold uppercase leading-loose ${i % 2 === 0 ? 'text-white' : 'text-rose'}`}>
-          {row.map(a => a.name).join('  •  ')}
-        </p>
-      )) : (
-        <p class="text-center text-white/40 py-8">Programmation bientôt disponible</p>
-      )}
-    </div>
+		<div class="text-center">
+			<a
+				href="/programmation"
+				class="inline-block border border-white text-white font-black uppercase text-xs tracking-widest px-10 py-3 rounded-full hover:bg-white hover:text-black transition-colors"
+			>
+				PROGRAMMATION
+			</a>
+		</div>
+	</section>
 
-    <div class="text-center">
-      <a
-        href="/programmation"
-        class="inline-block border border-white text-white font-black uppercase text-xs tracking-widest px-10 py-3 rounded-full hover:bg-white hover:text-black transition-colors"
-      >
-        PROGRAMMATION
-      </a>
-    </div>
-  </section>
+	<!-- ——— VIBRATIONS ——— -->
+	<section class="bg-black text-white py-12 px-4">
+		<div class="max-w-lg mx-auto">
+			<h2
+				class="text-3xl md:text-4xl font-black uppercase leading-tight mb-8"
+			>
+				PLUSIEURS NUITS DE<br />VIBRATIONS ÉLECTRIQUES
+			</h2>
 
-  <!-- ——— VIBRATIONS ——— -->
-  <section class="bg-black text-white py-12 px-4">
-    <div class="max-w-lg mx-auto">
-      <h2 class="text-3xl md:text-4xl font-black uppercase leading-tight mb-8">
-        PLUSIEURS NUITS DE<br />VIBRATIONS ÉLECTRIQUES
-      </h2>
+			<Image
+				src={descImg}
+				alt="Ambiance Lumimix"
+				class="w-full h-auto rounded-lg mb-8"
+			/>
 
-      <Image
-        src={descImg}
-        alt="Ambiance Lumimix"
-        class="w-full h-auto rounded-lg mb-8"
-      />
+			<p class="text-sm md:text-base text-white/75 leading-relaxed mb-4">
+				Plongez dans un univers musical vibrant où les pulsations
+				électro se mêlent aux grooves chaleureux du reggae. Durant
+				plusieurs nuits de fête, le festival ouvre un espace sans
+				limites, célébrant la richesse et le mélange des styles. DJs,
+				producteurs et artistes vous embarquent dans une programmation
+				variée : Electro, DJ et bien d'autres énergies sonores.
+			</p>
+			<p class="text-sm md:text-base text-white/75 leading-relaxed mb-10">
+				Préparez-vous à vivre une série de nuits inoubliables, où chaque
+				festivalier trouvera la vibe qui fera résonner son âme !
+			</p>
 
-      <p class="text-sm md:text-base text-white/75 leading-relaxed mb-4">
-        Plongez dans un univers musical vibrant où les pulsations électro se mêlent aux grooves chaleureux du reggae. Durant plusieurs nuits de fête, le festival ouvre un espace sans limites, célébrant la richesse et le mélange des styles. DJs, producteurs et artistes vous embarquent dans une programmation variée : Electro, DJ et bien d'autres énergies sonores.
-      </p>
-      <p class="text-sm md:text-base text-white/75 leading-relaxed mb-10">
-        Préparez-vous à vivre une série de nuits inoubliables, où chaque festivalier trouvera la vibe qui fera résonner son âme !
-      </p>
+			<a
+				href="/festival"
+				class="inline-block border border-white text-white font-black uppercase text-xs tracking-widest px-10 py-3 rounded-full hover:bg-white hover:text-black transition-colors"
+			>
+				HISTORIQUE
+			</a>
+		</div>
+	</section>
 
-      <a
-        href="/festival"
-        class="inline-block border border-white text-white font-black uppercase text-xs tracking-widest px-10 py-3 rounded-full hover:bg-white hover:text-black transition-colors"
-      >
-        HISTORIQUE
-      </a>
-    </div>
-  </section>
+	<!-- ——— PARTENAIRES ——— -->
+	<section class="bg-black text-white py-12 px-4">
+		<h2 class="text-3xl md:text-4xl font-black uppercase text-center mb-8">
+			NOS PARTENAIRES
+		</h2>
 
-  <!-- ——— PARTENAIRES ——— -->
-  <section class="bg-black text-white py-12 px-4">
-    <h2 class="text-3xl md:text-4xl font-black uppercase text-center mb-8">NOS PARTENAIRES</h2>
-
-    {partenaires.length > 0 ? (
-      <div class="max-w-lg mx-auto">
-        <Carousel>
-          {partenaires.map((p) => (
-              <div class="snap-center shrink-0 flex items-center justify-center w-40 px-4">
-              <PbImage record={p} field="logo" alt={p.name} class="max-h-20 w-auto object-contain" />
-            </div>
-          ))}
-        </Carousel>
-      </div>
-    ) : (
-      <p class="text-center text-white/40">Partenaires à venir</p>
-    )}
-  </section>
-
+		{
+			partenaires.length > 0 ? (
+				<div class="max-w-lg mx-auto">
+					<Carousel>
+						{partenaires.map((p) => (
+							<div class="snap-center shrink-0 flex items-center justify-center w-40 px-4">
+								<PbImage
+									record={p}
+									field="logo"
+									alt={p.name}
+									class="max-h-20 w-auto object-contain"
+								/>
+							</div>
+						))}
+					</Carousel>
+				</div>
+			) : (
+				<p class="text-center text-white/40">Partenaires à venir</p>
+			)
+		}
+	</section>
 </Layout>

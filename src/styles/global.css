@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
 @theme {
-  --color-rose: #F61FF1;
-  --font-asap: "Asap", sans-serif;
+    --color-rose: #F61FF1;
+    --font-asap: "Asap", sans-serif;
 }
