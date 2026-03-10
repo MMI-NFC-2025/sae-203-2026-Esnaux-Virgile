@@ -2,16 +2,14 @@
 import Layout from "../layouts/Layout.astro";
 import Carousel from "../components/Carousel.astro";
 import { Image } from "astro:assets";
-import { pb } from "../lib/pocketbase.js";
+import { getArtistesByOrder } from "../../backend/backend.mjs";
 import heroGif from "../assets/img/Hero_animee_accueil.gif";
 import descImg from "../assets/img/accueil_description_img.avif";
 import redbullImg from "../assets/img/redbull_img.avif";
 
 let artistes: any[] = [];
 try {
-	artistes = await pb
-		.collection("artiste")
-		.getFullList({ sort: "+nom_artiste" });
+	artistes = await getArtistesByOrder();
 } catch (e) {
 	console.error("Erreur PocketBase:", e);
 }

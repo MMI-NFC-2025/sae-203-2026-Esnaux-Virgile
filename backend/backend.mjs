@@ -1,5 +1,5 @@
 import PocketBase from 'pocketbase';
-const pb = new PocketBase('http://127.0.0.1:8090/');
+export const pb = new PocketBase('http://127.0.0.1:8090/');
 
 // Retourne la liste de tous les artistes triés par date de représentation
 export async function getArtistesByDate() {

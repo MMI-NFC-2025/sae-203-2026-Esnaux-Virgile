@@ -1,8 +1,12 @@
 ﻿---
-import { pb } from '../lib/pocketbase.js';
-const { record, field, alt = '', class: className = '', ...rest } = Astro.props;
-const filename = record?.[field] ?? '';
-const url = filename ? pb.files.getURL(record, filename) : '';
+import { pb } from "../../backend/backend.mjs";
+const { record, field, alt = "", class: className = "", ...rest } = Astro.props;
+const filename = record?.[field] ?? "";
+const url = filename ? pb.files.getURL(record, filename) : "";
 ---
 
-{url ? <img src={url} alt={alt} class={className} loading="lazy" {...rest} /> : null}
+{
+    url ? (
+        <img src={url} alt={alt} class={className} loading="lazy" {...rest} />
+    ) : null
+}

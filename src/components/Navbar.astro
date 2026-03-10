@@ -1,57 +1,251 @@
 ﻿---
-import { Image } from 'astro:assets';
-import persona from '../assets/img/persona.svg';
+import persona from "../assets/img/persona.svg";
+import instagram from "../assets/img/instagram.svg";
+import x from "../assets/img/x.svg";
+import tiktok from "../assets/img/tiktok.svg";
+import youtube from "../assets/img/youtube.svg";
 ---
 
-<header class="fixed top-0 left-0 right-0 z-50 bg-black px-4 py-3 flex items-center justify-between">
+<!-- ——— HEADER fixe ——— -->
+<header
+  class="fixed top-0 left-0 right-0 z-50 opacity-100 px-4 py-3 mt-2 flex items-center justify-between"
+>
+  <!-- Billetterie -->
   <a
     href="#billetterie"
-    class="flex items-center gap-2 bg-rose text-white font-bold text-xs px-4 py-2 rounded-full uppercase tracking-wide"
+    class="flex items-center gap-2 bg-rose text-black font-bold text-xs px-4 py-2 rounded-full uppercase tracking-wide hover:bg-white"
   >
-    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-      <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
-      <path d="M16 2l-4 5-4-5"/>
+    <svg
+      href="/src/assets/img/billetterie_bouton.svg"
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+      <path d="M16 2l-4 5-4-5"></path>
     </svg>
     BILLETTERIE
   </a>
 
-  <div class="flex items-center gap-4">
-    <a href="/connexion" aria-label="Mon compte">
-      <Image src={persona} alt="Compte" width={28} height={28} />
+  <!-- Droite -->
+  <div class="flex items-center gap-3">
+    <!-- Persona visible avec fond blanc pour que l'SVG soit lisible -->
+    <a
+      href="/connexion"
+      aria-label="Mon compte"
+      class="w-10 h-10 rounded-full flex items-center justify-center border-3 hover:border-rose transition-colors bg-white"
+    >
+      <img src={persona.src} alt="Compte" width="20" height="20" />
     </a>
-    <button id="menu-toggle" aria-label="Ouvrir le menu" class="flex flex-col justify-center gap-5px">
-      <span class="block w-6 h-2px bg-white"></span>
-      <span class="block w-6 h-2px bg-white"></span>
-      <span class="block w-6 h-2px bg-white"></span>
+
+    <!-- Hamburger -->
+    <button
+      id="menu-toggle"
+      aria-label="Ouvrir le menu"
+      aria-expanded="false"
+      class="w-10 h-10 rounded-full bg-rose flex flex-col items-center justify-center gap-1.25 hover:bg-white transition-colors"
+    >
+      <span
+        class="block w-5 rounded-full bg-black transition-all duration-300"
+        style="height:2px"></span>
+      <span
+        class="block w-5 rounded-full bg-black transition-all duration-300"
+        style="height:2px"></span>
+      <span
+        class="block w-5 rounded-full bg-black transition-all duration-300"
+        style="height:2px"></span>
     </button>
   </div>
 </header>
 
-<div id="nav-overlay" class="fixed inset-0 z-40 bg-black hidden flex-col items-center justify-center gap-8">
-  <button id="menu-close" aria-label="Fermer le menu" class="absolute top-4 right-4 text-white text-4xl leading-none">&times;</button>
-  <nav class="flex flex-col items-center gap-8 text-2xl font-black uppercase">
-    <a href="/" class="hover:text-rose transition-colors">Accueil</a>
-    <a href="/programmation" class="hover:text-rose transition-colors">Programmation</a>
-    <a href="/scenes" class="hover:text-rose transition-colors">Scenes</a>
-    <a href="/artistes" class="hover:text-rose transition-colors">Artistes</a>
-    <a href="/festival" class="hover:text-rose transition-colors">Festival</a>
-    <a href="/infos" class="hover:text-rose transition-colors">Infos pratiques</a>
-    <a href="/contact" class="hover:text-rose transition-colors">Contact</a>
-  </nav>
+<!-- ——— OVERLAY ——— -->
+<div
+  id="nav-overlay"
+  class="fixed inset-0 z-40 bg-black hidden flex-col"
+  aria-hidden="true"
+>
+  <!-- Header overlay -->
+  <div class="flex items-center justify-between px-4 py-3 mt-2">
+    <a href="/" class="text-white font-black text-xl uppercase tracking-widest"
+      >LUMIMIX</a
+    >
+    <div class="flex items-center gap-3">
+      <a
+        href="/connexion"
+        aria-label="Mon compte"
+        class="w-10 h-10 rounded-full border border-white/40 flex items-center justify-center hover:border-rose transition-colors bg-white/10"
+      >
+        <img
+          src={persona.src}
+          alt="Compte"
+          width="20"
+          height="20"
+          style="filter: invert(1);"
+        />
+      </a>
+      <button
+        id="menu-close"
+        aria-label="Fermer le menu"
+        class="w-10 h-10 rounded-full border-2 border-rose bg-rose flex items-center justify-center text-white text-2xl font-black hover:bg-rose/80 transition-colors"
+      >
+        &times;
+      </button>
+    </div>
+  </div>
+
+  <!-- Liens + bas -->
+  <div class="flex-1 flex flex-col justify-between px-6 py-8 overflow-y-auto">
+    <div>
+      <p
+        class="text-white/30 text-xs font-bold uppercase tracking-[0.25em] mb-6"
+      >
+        MENU
+      </p>
+      <nav class="flex flex-col gap-5">
+        <a
+          href="/"
+          class="text-white font-black text-2xl uppercase hover:text-rose transition-colors"
+          >Accueil</a
+        >
+        <a
+          href="/festival"
+          class="text-white font-black text-2xl uppercase hover:text-rose transition-colors"
+          >Le Festival</a
+        >
+        <a
+          href="/programmation"
+          class="text-white font-black text-2xl uppercase hover:text-rose transition-colors"
+          >Programmation</a
+        >
+        <a
+          href="/artistes"
+          class="text-white font-black text-2xl uppercase hover:text-rose transition-colors"
+          >Artistes</a
+        >
+        <a
+          href="/scenes"
+          class="text-white font-black text-2xl uppercase hover:text-rose transition-colors"
+          >Scènes</a
+        >
+        <a
+          href="/infos"
+          class="text-white font-black text-2xl uppercase hover:text-rose transition-colors"
+          >Infos pratiques</a
+        >
+        <a
+          href="/contact"
+          class="text-white font-black text-2xl uppercase hover:text-rose transition-colors"
+          >Contact</a
+        >
+      </nav>
+    </div>
+
+    <div>
+      <button
+        class="mb-8 w-10 h-10 rounded-full border border-white/40 text-white text-xs font-bold hover:border-rose transition-colors"
+        >FR</button
+      >
+      <div class="flex items-center gap-4">
+        <a
+          href="#"
+          aria-label="Facebook"
+          class="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center text-white hover:border-rose hover:text-rose transition-colors"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            ><path
+              d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"
+            ></path></svg
+          >
+        </a>
+        <a
+          href="#"
+          aria-label="X"
+          class="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center hover:border-rose transition-colors"
+        >
+          <img
+            src={x.src}
+            alt="X"
+            width="16"
+            height="16"
+            style="filter: invert(1);"
+          />
+        </a>
+        <a
+          href="#"
+          aria-label="Instagram"
+          class="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center hover:border-rose transition-colors"
+        >
+          <img
+            src={instagram.src}
+            alt="Instagram"
+            width="16"
+            height="16"
+            style="filter: invert(1);"
+          />
+        </a>
+        <a
+          href="#"
+          aria-label="TikTok"
+          class="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center hover:border-rose transition-colors"
+        >
+          <img
+            src={tiktok.src}
+            alt="TikTok"
+            width="16"
+            height="16"
+            style="filter: invert(1);"
+          />
+        </a>
+        <a
+          href="#"
+          aria-label="YouTube"
+          class="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center hover:border-rose transition-colors"
+        >
+          <img
+            src={youtube.src}
+            alt="YouTube"
+            width="16"
+            height="16"
+            style="filter: invert(1);"
+          />
+        </a>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
-  const toggle = document.getElementById('menu-toggle');
-  const close = document.getElementById('menu-close');
-  const overlay = document.getElementById('nav-overlay');
+  const toggle = document.getElementById("menu-toggle");
+  const closeBtn = document.getElementById("menu-close");
+  const overlay = document.getElementById("nav-overlay");
 
-  toggle?.addEventListener('click', () => {
-    overlay?.classList.remove('hidden');
-    overlay?.classList.add('flex');
-  });
+  function openMenu() {
+    overlay?.classList.remove("hidden");
+    overlay?.classList.add("flex");
+    toggle?.setAttribute("aria-expanded", "true");
+    overlay?.setAttribute("aria-hidden", "false");
+  }
 
-  close?.addEventListener('click', () => {
-    overlay?.classList.add('hidden');
-    overlay?.classList.remove('flex');
+  function closeMenu() {
+    overlay?.classList.remove("flex");
+    overlay?.classList.add("hidden");
+    toggle?.setAttribute("aria-expanded", "false");
+    overlay?.setAttribute("aria-hidden", "true");
+  }
+
+  toggle?.addEventListener("click", openMenu);
+  closeBtn?.addEventListener("click", closeMenu);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeMenu();
   });
 </script>
