@@ -110,11 +110,11 @@ try {
 				membres.length > 0 ? (
 					<div class="flex flex-col gap-10">
 						{membres.map((m) => (
-							<article class="flex flex-col sm:flex-row gap-6 items-start">
-								<!-- Image gauche -->
+							<article class="grid gap-6 items-start" style="grid-template-columns: 1fr 2fr;">
+								<!-- Image gauche (col 1) -->
 								<div
-									class="w-full sm:w-2/5 shrink-0 rounded-2xl overflow-hidden bg-white/10"
-									style="aspect-ratio: 4/3;"
+									class="rounded-2xl overflow-hidden bg-white/10"
+									style="aspect-ratio: 3/4;"
 								>
 									{m.image_membre ? (
 										<PbImage
@@ -131,8 +131,8 @@ try {
 										</div>
 									)}
 								</div>
-								<!-- Infos droite -->
-								<div class="flex-1 pt-1">
+								<!-- Infos droite (col 2) -->
+								<div class="pt-1">
 									<h3
 										class="font-black uppercase leading-tight mb-1"
 										style="font-size: clamp(1.1rem, 3vw, 1.75rem);"
@@ -141,7 +141,7 @@ try {
 									</h3>
 									{m.role_membre && (
 										<p
-											class="font-bold uppercase tracking-wide mb-4"
+											class="font-bold italic uppercase tracking-wide mb-4"
 											style="color: var(--color-rose); font-family: Arial, Helvetica, sans-serif; font-size: clamp(0.75rem, 1.5vw, 0.875rem);"
 										>
 											{m.role_membre}
@@ -149,7 +149,7 @@ try {
 									)}
 									{m.description_membre && (
 										<p
-											class="text-body font-bold leading-relaxed"
+											class="text-body leading-relaxed"
 											style="font-family: Arial, Helvetica, sans-serif; color: rgba(255,255,255,0.85);"
 										>
 											{m.description_membre}
