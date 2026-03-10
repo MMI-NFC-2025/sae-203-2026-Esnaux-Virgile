@@ -6,17 +6,19 @@ import instagram from "../assets/img/instagram.svg";
 import x from "../assets/img/x.svg";
 import tiktok from "../assets/img/tiktok.svg";
 import youtube from "../assets/img/youtube.svg";
+
+import "../styles/global.css";
 ---
 
-<!-- ——— HEADER fixe ——— -->
+<!--  HEADER fixe  -->
 <header
-  class="fixed top-0 left-0 right-0 z-50 opacity-100 px-4 py-2 mt-2 flex items-center justify-between"
+  class="fixed top-0 left-0 right-0 z-50 opacity-100 px-4 md:px-8 py-2 md:py-3 mt-2 flex items-center justify-between"
 >
   <!-- Billetterie / LUMIMIX toggle -->
   <a
     id="header-billetterie"
     href="#billetterie"
-    class="flex items-center gap-2 bg-rose text-black font-bold text-xs px-4 py-2 rounded-full uppercase tracking-wide hover:bg-white"
+    class="flex items-center gap-2 bg-rose text-black font-bold text-xs md:text-xl px-4 md:px-12 py-2 md:py-6 rounded-full uppercase tracking-wide hover:bg-white"
   >
     <img src={billeterie.src} alt="Billetterie" width="16" height="16" />
     BILLETTERIE
@@ -24,7 +26,7 @@ import youtube from "../assets/img/youtube.svg";
   <a
     id="header-lumimix"
     href="/"
-    class="hidden text-white font-black text-xl uppercase tracking-widest"
+    class="hidden font-brand text-white font-black text-xl uppercase tracking-widest"
     style="text-shadow: 0 0 20px #FFFFFF;">LUMIMIX</a
   >
 
@@ -34,7 +36,7 @@ import youtube from "../assets/img/youtube.svg";
     <a
       href="/connexion"
       aria-label="Mon compte"
-      class="w-10 h-10 rounded-full flex items-center justify-center border-3 hover:border-rose transition-colors bg-white"
+      class="w-10 h-10 md:w-24 md:h-24 rounded-full flex items-center justify-center border-3 hover:border-rose transition-colors bg-white"
     >
       <img src={persona.src} alt="Compte" width="20" height="20" />
     </a>
@@ -44,7 +46,7 @@ import youtube from "../assets/img/youtube.svg";
       id="menu-toggle"
       aria-label="Ouvrir le menu"
       aria-expanded="false"
-      class="w-10 h-10 rounded-full bg-rose flex flex-col items-center justify-center gap-1.25 hover:bg-black transition-colors"
+      class="w-10 h-10 md:w-24 md:h-24 rounded-full bg-rose flex flex-col items-center justify-center gap-1.25 hover:bg-black transition-colors"
     >
       <span
         class="hamburger-bar block w-5 rounded-full bg-white"
@@ -59,54 +61,56 @@ import youtube from "../assets/img/youtube.svg";
   </div>
 </header>
 
-<!-- ——— OVERLAY ——— -->
+<!--  OVERLAY  -->
 <div
   id="nav-overlay"
   class="fixed inset-0 z-40 bg-black hidden flex-col"
   aria-hidden="true"
 >
   <!-- Liens + bas -->
-  <div class="flex-1 flex flex-col justify-between px-6 py-8 overflow-y-auto">
+  <div
+    class="flex-1 flex flex-col justify-between px-6 md:px-20 py-8 md:py-12 overflow-y-auto"
+  >
     <div>
       <p
-        class="text-white/50 text-xs font-bold uppercase tracking-[0.25em] mb-6 mt-10"
+        class="text-white text-page-title font-bold uppercase tracking-[0.10em] mb-6 mt-20 gap-2"
       >
         MENU
       </p>
-      <nav class="flex flex-col gap-5">
+      <nav class="flex flex-col gap-3 md:gap-6">
         <a
           href="/"
-          class="text-white font-black text-2xl uppercase hover:text-rose transition-colors"
+          class="text-white font-black text-xl md:text-5xl uppercase hover:text-rose transition-colors"
           >Accueil</a
         >
         <a
           href="/festival"
-          class="text-white font-black text-2xl uppercase hover:text-rose transition-colors"
+          class="text-white font-black text-xl md:text-5xl uppercase hover:text-rose transition-colors"
           >Le Festival</a
         >
         <a
           href="/programmation"
-          class="text-white font-black text-2xl uppercase hover:text-rose transition-colors"
+          class="text-white font-black text-xl md:text-5xl uppercase hover:text-rose transition-colors"
           >Programmation</a
         >
         <a
           href="/artistes"
-          class="text-white font-black text-2xl uppercase hover:text-rose transition-colors"
+          class="text-white font-black text-xl md:text-5xl uppercase hover:text-rose transition-colors"
           >Artistes</a
         >
         <a
           href="/scenes"
-          class="text-white font-black text-2xl uppercase hover:text-rose transition-colors"
-          >Scènes</a
+          class="text-white font-black text-xl md:text-5xl uppercase hover:text-rose transition-colors"
+          >Scenes</a
         >
         <a
           href="/infos"
-          class="text-white font-black text-2xl uppercase hover:text-rose transition-colors"
+          class="text-white font-black text-xl md:text-5xl uppercase hover:text-rose transition-colors"
           >Infos pratiques</a
         >
         <a
           href="/contact"
-          class="text-white font-black text-2xl uppercase hover:text-rose transition-colors"
+          class="text-white font-black text-xl md:text-5xl uppercase hover:text-rose transition-colors"
           >Contact</a
         >
       </nav>
@@ -114,40 +118,84 @@ import youtube from "../assets/img/youtube.svg";
 
     <div>
       <button
-        class="mb-8 w-10 h-10 rounded-full border border-white/40 text-white text-xs font-bold hover:border-rose transition-colors"
+        class="mt-10 mb-10 w-10 h-10 md:w-24 md:h-24 rounded-full border border-white/40 text-white text-xs md:text-xl font-bold hover:border-rose transition-colors"
         >FR</button
       >
-      <div class="flex items-center gap-6">
+      <div class="flex items-center gap-6 md:gap-10">
         <a
-          href="#"
+          href="https://www.facebook.com/"
+          target="_blank"
+          rel="noopener noreferrer"
           aria-label="Facebook"
           class="hover:opacity-70 transition-opacity"
         >
-          <img src={facebook.src} alt="Facebook" width="24" height="24" />
-        </a>
-        <a href="#" aria-label="X" class="hover:opacity-70 transition-opacity">
-          <img src={x.src} alt="X" width="24" height="24" />
+          <img
+            src={facebook.src}
+            alt="Facebook"
+            width="24"
+            height="24"
+            class="md:w-16 md:h-16"
+          />
         </a>
         <a
-          href="#"
+          href="https://x.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="X"
+          class="hover:opacity-70 transition-opacity"
+        >
+          <img
+            src={x.src}
+            alt="X"
+            width="24"
+            height="24"
+            class="md:w-16 md:h-16"
+          />
+        </a>
+        <a
+          href="https://www.instagram.com/"
+          target="_blank"
+          rel="noopener noreferrer"
           aria-label="Instagram"
           class="hover:opacity-70 transition-opacity"
         >
-          <img src={instagram.src} alt="Instagram" width="24" height="24" />
+          <img
+            src={instagram.src}
+            alt="Instagram"
+            width="24"
+            height="24"
+            class="md:w-16 md:h-16"
+          />
         </a>
         <a
-          href="#"
+          href="https://www.tiktok.com/"
+          target="_blank"
+          rel="noopener noreferrer"
           aria-label="TikTok"
           class="hover:opacity-70 transition-opacity"
         >
-          <img src={tiktok.src} alt="TikTok" width="24" height="24" />
+          <img
+            src={tiktok.src}
+            alt="TikTok"
+            width="24"
+            height="24"
+            class="md:w-16 md:h-16"
+          />
         </a>
         <a
-          href="#"
+          href="https://www.youtube.com/"
+          target="_blank"
+          rel="noopener noreferrer"
           aria-label="YouTube"
           class="hover:opacity-70 transition-opacity"
         >
-          <img src={youtube.src} alt="YouTube" width="24" height="24" />
+          <img
+            src={youtube.src}
+            alt="YouTube"
+            width="24"
+            height="24"
+            class="md:w-16 md:h-16"
+          />
         </a>
       </div>
     </div>
