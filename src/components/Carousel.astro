@@ -2,18 +2,18 @@
 
 ---
 
-<div class="relative flex items-center gap-3">
+<div class="relative flex items-center gap-4">
     <button
         id="carousel-prev"
         aria-label="Precedent"
-        class="shrink-0 w-10 h-10 rounded-full border border-white/30 flex items-center justify-center text-white hover:border-rose hover:text-rose transition-colors"
+        class="shrink-0 w-11 h-11 rounded-full border-2 border-white/60 flex items-center justify-center text-white text-lg font-bold hover:border-rose hover:text-rose transition-colors"
     >
         &#8592;
     </button>
 
     <div
         id="carousel-viewport"
-        class="flex-1 overflow-x-auto flex gap-8 snap-x snap-mandatory items-center py-4"
+        class="flex-1 overflow-x-auto flex gap-8 snap-x snap-mandatory items-center justify-center py-4"
         style="scrollbar-width: none; -ms-overflow-style: none;"
     >
         <slot />
@@ -22,7 +22,7 @@
     <button
         id="carousel-next"
         aria-label="Suivant"
-        class="shrink-0 w-10 h-10 rounded-full border border-white/30 flex items-center justify-center text-white hover:border-rose hover:text-rose transition-colors"
+        class="shrink-0 w-11 h-11 rounded-full border-2 border-white/60 flex items-center justify-center text-white text-lg font-bold hover:border-rose hover:text-rose transition-colors"
     >
         &#8594;
     </button>

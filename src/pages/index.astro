@@ -1,71 +1,77 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Carousel from "../components/Carousel.astro";
-import PbImage from "../components/PbImage.astro";
 import { Image } from "astro:assets";
 import { pb } from "../lib/pocketbase.js";
 import heroGif from "../assets/img/Hero_animee_accueil.gif";
 import descImg from "../assets/img/accueil_description_img.avif";
+import redbullImg from "../assets/img/redbull_img.avif";
 
 let artistes: any[] = [];
-let partenaires: any[] = [];
 try {
-	[artistes, partenaires] = await Promise.all([
-		pb.collection("artistes").getFullList({ sort: "name" }),
-		pb.collection("partenaires").getFullList(),
-	]);
+	artistes = await pb
+		.collection("artiste")
+		.getFullList({ sort: "+nom_artiste" });
 } catch (e) {
 	console.error("Erreur PocketBase:", e);
-}
-
-// Grouper les artistes par lignes de ~4 pour affichage alternant
-const rows = [];
-for (let i = 0; i < artistes.length; i += 4) {
-	rows.push(artistes.slice(i, i + 4));
 }
 ---
 
 <Layout title="LUMIMIX 2026 - Accueil">
 	<!-- ——— HERO ——— -->
 	<section class="bg-black text-white text-center px-4 pt-10 pb-12">
-		<p
-			class="text-rose font-bold italic text-sm uppercase tracking-widest mb-1"
-		>
+		<p class="text-rose font-bold text-3xl uppercase tracking-widest mb-1">
 			Festival 2026
 		</p>
+
 		<h1
-			class="text-7xl md:text-9xl font-black italic uppercase leading-none mb-2"
+			class="text-7xl md:text-9xl font-black uppercase leading-none mb-2"
+			style="text-shadow: 0 0 20px #FFFFFF;"
 		>
 			LUMIMIX
 		</h1>
+
 		<p
-			class="text-xs md:text-sm uppercase tracking-[0.18em] text-white/80 mb-8"
+			class="text-xs md:text-2xl uppercase tracking-[0.18em] text-white/80 mb-8"
 		>
 			OSE LA LUMIÈRE ET OSE LE SON
 		</p>
 
-		<div class="max-w-xs mx-auto mb-8">
+		<!-- GIF cropé, responsive -->
+		<div
+			class="mx-auto mb-8 overflow-hidden rounded-full"
+			style="width: clamp(180px, 60vw, 380px); height: clamp(180px, 60vw, 380px);"
+		>
 			<img
 				src={heroGif?.src ?? heroGif}
 				alt="Lumimix festival — animation"
-				class="w-full h-auto"
+				class="w-full h-full object-cover object-center scale-[1.15] origin-center"
 			/>
 		</div>
 
-		<div class="flex justify-center items-start gap-8 mb-6">
-			<div>
-				<p class="text-6xl md:text-7xl font-black leading-none">07</p>
+		<div
+			class="grid grid-cols-3 items-center justify-items-center mx-auto mb-6"
+			style="max-width: clamp(200px, 60vw, 300px);"
+		>
+			<div class="text-center">
+				<p
+					class="text-6xl md:text-7xl font-black leading-none"
+					style="text-shadow: 0 0 20px #FFFFFF;"
+				>
+					07
+				</p>
 				<p class="text-xs font-bold uppercase tracking-[0.2em] mt-1">
 					AOÛT
 				</p>
 			</div>
-			<div
-				class="text-5xl md:text-6xl font-thin self-center text-white/40"
-			>
-				|
-			</div>
-			<div>
-				<p class="text-6xl md:text-7xl font-black leading-none">08</p>
+			<div class="text-5xl md:text-6xl font-thin text-white/40">|</div>
+			<div class="text-center">
+				<p
+					class="text-6xl md:text-7xl font-black leading-none"
+					style="text-shadow: 0 0 20px #FFFFFF;"
+				>
+					08
+				</p>
 				<p class="text-xs font-bold uppercase tracking-[0.2em] mt-1">
 					AOÛT
 				</p>
@@ -94,26 +100,21 @@ for (let i = 0; i < artistes.length; i += 4) {
 				<h2 class="text-4xl md:text-5xl font-black uppercase">
 					PROGRAMMATION
 				</h2>
-				<a
-					href="/programmation"
-					aria-label="Voir la programmation complète"
-					class="shrink-0 w-12 h-12 rounded-full bg-rose flex items-center justify-center text-white font-black text-xl"
-				>
-					^
-				</a>
 			</div>
 		</div>
 
 		<div class="max-w-2xl mx-auto mb-10">
 			{
-				rows.length > 0 ? (
-					rows.map((row, i) => (
-						<p
-							class={`text-sm md:text-base font-bold uppercase leading-loose ${i % 2 === 0 ? "text-white" : "text-rose"}`}
-						>
-							{row.map((a) => a.name).join("  •  ")}
-						</p>
-					))
+				artistes.length > 0 ? (
+					<div class="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-1">
+						{artistes.map((a, i) => (
+							<p
+								class={`text-sm md:text-base font-bold uppercase leading-loose ${i % 2 === 0 ? "text-white" : "text-rose"}`}
+							>
+								{a.nom_artiste ?? a.name}
+							</p>
+						))}
+					</div>
 				) : (
 					<p class="text-center text-white/40 py-8">
 						Programmation bientôt disponible
@@ -134,38 +135,48 @@ for (let i = 0; i < artistes.length; i += 4) {
 
 	<!-- ——— VIBRATIONS ——— -->
 	<section class="bg-black text-white py-12 px-4">
-		<div class="max-w-lg mx-auto">
-			<h2
-				class="text-3xl md:text-4xl font-black uppercase leading-tight mb-8"
-			>
-				PLUSIEURS NUITS DE<br />VIBRATIONS ÉLECTRIQUES
-			</h2>
+		<div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-10 items-center">
+			<!-- Texte -->
+			<div>
+				<h2
+					class="text-3xl md:text-4xl font-black uppercase leading-tight mb-8"
+				>
+					PLUSIEURS NUITS DE<br />VIBRATIONS ÉLECTRIQUES
+				</h2>
 
+				<p
+					class="text-sm md:text-base text-white/75 leading-relaxed mb-4"
+				>
+					Plongez dans un univers musical vibrant où les pulsations
+					électro se mêlent aux grooves chaleureux du reggae. Durant
+					plusieurs nuits de fête, le festival ouvre un espace sans
+					limites, célébrant la richesse et le mélange des styles.
+					DJs, producteurs et artistes vous embarquent dans une
+					programmation variée : Electro, DJ et bien d'autres énergies
+					sonores.
+				</p>
+				<p
+					class="text-sm md:text-base text-white/75 leading-relaxed mb-10"
+				>
+					Préparez-vous à vivre une série de nuits inoubliables, où
+					chaque festivalier trouvera la vibe qui fera résonner son
+					âme !
+				</p>
+
+				<a
+					href="/festival"
+					class="inline-block border border-white text-white font-black uppercase text-xs tracking-widest px-10 py-3 rounded-full hover:bg-white hover:text-black transition-colors"
+				>
+					HISTORIQUE
+				</a>
+			</div>
+
+			<!-- Image -->
 			<Image
 				src={descImg}
 				alt="Ambiance Lumimix"
-				class="w-full h-auto rounded-lg mb-8"
+				class="w-full h-auto rounded-lg md:order-last order-first"
 			/>
-
-			<p class="text-sm md:text-base text-white/75 leading-relaxed mb-4">
-				Plongez dans un univers musical vibrant où les pulsations
-				électro se mêlent aux grooves chaleureux du reggae. Durant
-				plusieurs nuits de fête, le festival ouvre un espace sans
-				limites, célébrant la richesse et le mélange des styles. DJs,
-				producteurs et artistes vous embarquent dans une programmation
-				variée : Electro, DJ et bien d'autres énergies sonores.
-			</p>
-			<p class="text-sm md:text-base text-white/75 leading-relaxed mb-10">
-				Préparez-vous à vivre une série de nuits inoubliables, où chaque
-				festivalier trouvera la vibe qui fera résonner son âme !
-			</p>
-
-			<a
-				href="/festival"
-				class="inline-block border border-white text-white font-black uppercase text-xs tracking-widest px-10 py-3 rounded-full hover:bg-white hover:text-black transition-colors"
-			>
-				HISTORIQUE
-			</a>
 		</div>
 	</section>
 
@@ -175,25 +186,29 @@ for (let i = 0; i < artistes.length; i += 4) {
 			NOS PARTENAIRES
 		</h2>
 
-		{
-			partenaires.length > 0 ? (
-				<div class="max-w-lg mx-auto">
-					<Carousel>
-						{partenaires.map((p) => (
-							<div class="snap-center shrink-0 flex items-center justify-center w-40 px-4">
-								<PbImage
-									record={p}
-									field="logo"
-									alt={p.name}
-									class="max-h-20 w-auto object-contain"
-								/>
-							</div>
-						))}
-					</Carousel>
+		<div class="max-w-sm mx-auto">
+			<Carousel>
+				<!-- Red Bull -->
+				<div
+					class="snap-center shrink-0 flex items-center justify-center w-48 px-6"
+				>
+					<Image
+						src={redbullImg}
+						alt="Red Bull"
+						class="max-h-24 w-auto object-contain"
+					/>
 				</div>
-			) : (
-				<p class="text-center text-white/40">Partenaires à venir</p>
-			)
-		}
+				<!-- Autres partenaires -->
+				<div
+					class="snap-center shrink-0 flex items-center justify-center w-48 px-6"
+				>
+					<p
+						class="text-white/40 text-xs text-center uppercase tracking-widest font-bold"
+					>
+						Autres partenaires<br />à venir
+					</p>
+				</div>
+			</Carousel>
+		</div>
 	</section>
 </Layout>
