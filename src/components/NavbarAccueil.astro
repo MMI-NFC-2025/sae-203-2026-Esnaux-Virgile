@@ -1,5 +1,6 @@
----
+﻿---
 import persona from "../assets/img/persona.svg";
+import billeterie from "../assets/img/billeterie_bouton.svg";
 import facebook from "../assets/img/facebook.svg";
 import instagram from "../assets/img/instagram.svg";
 import x from "../assets/img/x.svg";
@@ -9,21 +10,29 @@ import youtube from "../assets/img/youtube.svg";
 import "../styles/global.css";
 ---
 
-<!--  HEADER fixe — pages intérieures (LUMIMIX toujours visible)  -->
+<!--  HEADER fixe  -->
 <header
-  class="fixed top-0 left-0 right-0 z-50 px-4 md:px-8 py-2 md:py-3 mt-2 flex items-center justify-between"
+  class="fixed top-0 left-0 right-0 z-50 opacity-100 px-4 md:px-8 py-2 md:py-3 mt-2 flex items-center justify-between"
 >
-  <!-- LUMIMIX toujours visible -->
+  <!-- Billetterie / LUMIMIX toggle -->
   <a
-    href="/"
-    class="font-brand text-white font-black text-xl md:text-3xl uppercase tracking-widest"
-    style="text-shadow: 0 0 20px #FFFFFF;"
+    id="header-billetterie"
+    href="#billetterie"
+    class="flex items-center gap-2 bg-rose text-black font-bold text-xs md:text-xl px-4 md:px-12 py-2 md:py-6 rounded-full uppercase tracking-wide hover:bg-white"
   >
-    LUMIMIX
+    <img src={billeterie.src} alt="Billetterie" width="16" height="16" />
+    BILLETTERIE
   </a>
+  <a
+    id="header-lumimix"
+    href="/"
+    class="hidden font-brand text-white font-black text-xl uppercase tracking-widest"
+    style="text-shadow: 0 0 20px #FFFFFF;">LUMIMIX</a
+  >
 
   <!-- Droite -->
   <div class="flex items-center gap-3">
+    <!-- Persona / Logo utilisateur visible -->
     <a
       href="/connexion"
       aria-label="Mon compte"
@@ -32,6 +41,7 @@ import "../styles/global.css";
       <img src={persona.src} alt="Compte" width="20" height="20" />
     </a>
 
+    <!-- Hamburger -->
     <button
       id="menu-toggle"
       aria-label="Ouvrir le menu"
@@ -57,6 +67,7 @@ import "../styles/global.css";
   class="fixed inset-0 z-40 bg-black hidden flex-col"
   aria-hidden="true"
 >
+  <!-- Liens + bas -->
   <div
     class="flex-1 flex flex-col justify-between px-6 md:px-20 py-8 md:py-12 overflow-y-auto"
   >
@@ -133,7 +144,13 @@ import "../styles/global.css";
           aria-label="X"
           class="hover:opacity-70 transition-opacity"
         >
-          <img src={x.src} alt="X" width="24" height="24" class="md:w-16 md:h-16" />
+          <img
+            src={x.src}
+            alt="X"
+            width="24"
+            height="24"
+            class="md:w-16 md:h-16"
+          />
         </a>
         <a
           href="https://www.instagram.com/"
@@ -208,6 +225,9 @@ import "../styles/global.css";
   const toggle = document.getElementById("menu-toggle");
   const overlay = document.getElementById("nav-overlay");
 
+  const billetterie = document.getElementById("header-billetterie");
+  const lumimix = document.getElementById("header-lumimix");
+
   function openMenu() {
     overlay?.classList.remove("hidden");
     overlay?.classList.add("flex");
@@ -215,6 +235,8 @@ import "../styles/global.css";
     toggle?.setAttribute("aria-label", "Fermer le menu");
     overlay?.setAttribute("aria-hidden", "false");
     toggle?.classList.add("is-open");
+    billetterie?.classList.add("hidden");
+    lumimix?.classList.remove("hidden");
   }
 
   function closeMenu() {
@@ -224,6 +246,8 @@ import "../styles/global.css";
     toggle?.setAttribute("aria-label", "Ouvrir le menu");
     overlay?.setAttribute("aria-hidden", "true");
     toggle?.classList.remove("is-open");
+    billetterie?.classList.remove("hidden");
+    lumimix?.classList.add("hidden");
   }
 
   toggle?.addEventListener("click", () => {

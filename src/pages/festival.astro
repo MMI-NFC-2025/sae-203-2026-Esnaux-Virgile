@@ -1,0 +1,359 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PbImage from "../components/PbImage.astro";
+import { Image } from "astro:assets";
+import { getMembres } from "../../backend/backend.mjs";
+import heroFestival from "../assets/img/hero_festival.avif";
+import groupeSon from "../assets/img/groupeson.avif";
+import groupeLumiere from "../assets/img/groupelumiere.avif";
+import groupeSecu from "../assets/img/groupesecu.avif";
+
+let membres: any[] = [];
+try {
+    membres = await getMembres();
+} catch (e) {
+    console.error("Erreur PocketBase:", e);
+}
+---
+
+<Layout title="Le Festival">
+
+	<!-- ——— TITRE ——— -->
+	<section class="bg-black text-white pt-14 pb-2 px-4">
+		<div class="text-center">
+			<h1 class="text-page-title font-black uppercase leading-none">LE FESTIVAL</h1>
+		</div>
+	</section>
+
+	<!-- ——— HERO IMAGE ——— -->
+	<section class="bg-black py-8" style="padding-left: 10%; padding-right: 10%;">
+		<div class="rounded-3xl overflow-hidden w-full"
+			style="height: clamp(14rem, 40vw, 30rem);">
+			<Image
+				src={heroFestival}
+				alt="Lumimix Festival"
+				class="w-full h-full object-cover object-center"
+			/>
+		</div>
+	</section>
+
+	<!-- ——— INTRO ——— -->
+	<section class="bg-black text-white py-12 px-4">
+		<div class="max-w-4xl mx-auto">
+			<h2 class="text-section-title font-black uppercase leading-tight mb-8">
+				PLUSIEURS NUITS DE<br />VIBRATIONS ÉLECTRIQUES
+			</h2>
+			<p class="text-body text-white leading-relaxed mb-4">
+				Plongez dans un univers musical vibrant où les pulsations
+				électro se mêlent aux grooves chaleureux du reggae. Durant
+				plusieurs nuits de fête, le festival ouvre un espace sans
+				limites, célébrant la richesse et le mélange des styles.
+				DJs, producteurs et artistes vous embarquent dans une
+				programmation variée : Electro, DJ et bien d'autres énergies
+				sonores.
+			</p>
+			<p class="text-body text-white leading-relaxed font-bold">
+				Préparez-vous à vivre une série de nuits inoubliables, où
+				chaque festivalier trouvera la vibe qui fera résonner son âme !
+			</p>
+		</div>
+	</section>
+
+	<!-- ——— HISTORIQUE ——— -->
+	<section class="bg-black text-white py-12 px-4">
+		<div class="max-w-4xl mx-auto">
+			<p class="uppercase tracking-[0.2em] text-white/50 mb-1 text-sm">Histoire</p>
+			<h2 class="text-section-title font-black uppercase leading-none mb-10">HISTORIQUE</h2>
+
+			<div class="grid md:grid-cols-2 gap-10">
+				<!-- Colonne gauche -->
+				<div class="space-y-8">
+					<div>
+						<p class="font-bold uppercase tracking-wide mb-2"
+							style="color: var(--color-rose); font-family: Arial, Helvetica, sans-serif;">
+							Présentation du festival
+						</p>
+						<p class="text-body font-bold leading-relaxed"
+							style="font-family: Arial, Helvetica, sans-serif;">
+							Le festival Lumimix est un rendez-vous musical qui
+							met à l'honneur la fusion des styles, notamment
+							l'électro, le reggae et d'autres sonorités actuelles.
+							Organisé sur plusieurs nuits, il propose une atmosphère
+							lumineuse et vibrante où se mêlent DJs, producteurs
+							et artistes live, invitant le public à vivre une
+							immersion totale dans des univers rythmiques variés.
+						</p>
+					</div>
+					<div>
+						<p class="font-bold uppercase tracking-wide mb-2"
+							style="color: var(--color-rose); font-family: Arial, Helvetica, sans-serif;">
+							Sa création
+						</p>
+						<p class="text-body font-bold leading-relaxed"
+							style="font-family: Arial, Helvetica, sans-serif;">
+							Lumimix a vu le jour au début des années 2010,
+							imaginé par un collectif de passionnés souhaitant
+							effacer les frontières musicales traditionnelles. Leur
+							ambition était de créer un espace festif ouvert et
+							accessible, où les différentes cultures sonores
+							pourraient dialoguer librement et où la scène
+							indépendante aurait toute sa place.
+						</p>
+					</div>
+				</div>
+				<!-- Colonne droite -->
+				<div>
+					<p class="font-bold uppercase tracking-wide mb-2"
+						style="color: var(--color-rose); font-family: Arial, Helvetica, sans-serif;">
+						Ses objectifs
+					</p>
+					<p class="text-body font-bold leading-relaxed"
+						style="font-family: Arial, Helvetica, sans-serif;">
+						Depuis sa création, le festival poursuit la même ligne
+						directrice : célébrer la diversité musicale, encourager
+						la découverte de nouveaux talents et offrir un cadre où
+						chacun peut trouver l'énergie qui lui parle. Lumimix
+						cherche aussi à promouvoir le partage, l'expérimentation
+						artistique et une ambiance inclusive pour vivre le
+						festival à fond, au fil de plusieurs nuits inoubliables.
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- ——— ÉQUIPE ORGANISATEURS ——— -->
+	<section class="bg-black text-white py-12 px-4">
+		<div class="max-w-4xl mx-auto">
+			<p class="uppercase tracking-[0.2em] text-white/50 mb-1 text-sm">Organisateurs</p>
+			<h2 class="text-section-title font-black uppercase leading-none mb-10">ÉQUIPE</h2>
+
+			{
+				membres.length > 0 ? (
+					<div class="flex flex-col gap-10">
+						{membres.map((m) => (
+							<article class="flex flex-col sm:flex-row gap-6 items-start">
+								<!-- Image gauche -->
+								<div
+									class="w-full sm:w-2/5 shrink-0 rounded-2xl overflow-hidden bg-white/10"
+									style="aspect-ratio: 4/3;"
+								>
+									{m.image_membre ? (
+										<PbImage
+											record={m}
+											field="image_membre"
+											alt={`${m.prenom_membre ?? ""} ${m.nom_membre ?? ""}`}
+											class="w-full h-full object-cover object-center"
+										/>
+									) : (
+										<div class="w-full h-full flex items-center justify-center">
+											<span class="text-white/20 text-5xl font-black uppercase">
+												{(m.prenom_membre ?? m.nom_membre ?? "?")[0]}
+											</span>
+										</div>
+									)}
+								</div>
+								<!-- Infos droite -->
+								<div class="flex-1 pt-1">
+									<h3
+										class="font-black uppercase leading-tight mb-1"
+										style="font-size: clamp(1.1rem, 3vw, 1.75rem);"
+									>
+										{m.prenom_membre} {m.nom_membre}
+									</h3>
+									{m.role_membre && (
+										<p
+											class="font-bold uppercase tracking-wide mb-4"
+											style="color: var(--color-rose); font-family: Arial, Helvetica, sans-serif; font-size: clamp(0.75rem, 1.5vw, 0.875rem);"
+										>
+											{m.role_membre}
+										</p>
+									)}
+									{m.description_membre && (
+										<p
+											class="text-body font-bold leading-relaxed"
+											style="font-family: Arial, Helvetica, sans-serif; color: rgba(255,255,255,0.85);"
+										>
+											{m.description_membre}
+										</p>
+									)}
+								</div>
+							</article>
+						))}
+					</div>
+				) : (
+					<p class="text-white/40 py-8">Membres bientôt disponibles</p>
+				)
+			}
+		</div>
+	</section>
+
+	<!-- ——— ÉQUIPES TECHNIQUES ——— -->
+	<section class="bg-black text-white py-12 px-4">
+		<div class="max-w-6xl mx-auto">
+			<p class="uppercase tracking-[0.2em] text-white/50 mb-1 text-sm">Équipes</p>
+			<h2 class="text-section-title font-black uppercase leading-none mb-10">
+				ÉQUIPES TECHNIQUES
+			</h2>
+
+			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+				<!-- Groupe Son -->
+				<article class="bg-white/5">
+					<div class="rounded-t-2xl overflow-hidden w-full" style="aspect-ratio: 16/9;">
+						<Image src={groupeSon} alt="Groupe Son"
+							class="w-full h-full object-cover object-center" />
+					</div>
+					<div class="p-5">
+						<h3 class="font-black uppercase leading-tight mb-1"
+							style="font-size: clamp(1rem, 2.5vw, 1.25rem);">GROUPE SON</h3>
+						<p class="font-bold uppercase tracking-wide text-sm mb-3"
+							style="color: var(--color-rose); font-family: Arial, Helvetica, sans-serif;">
+							Équipes techniques
+						</p>
+						<p class="text-body font-bold leading-relaxed"
+							style="font-family: Arial, Helvetica, sans-serif; color: rgba(255,255,255,0.8);">
+							Équipe dédiée à l'ingénierie sonore : installation des
+							systèmes audio, gestion des balances, optimisation
+							acoustique et suivi technique pendant les performances.
+						</p>
+					</div>
+				</article>
+
+				<!-- Groupe Lumière -->
+				<article class="bg-white/5">
+					<div class="rounded-t-2xl overflow-hidden w-full" style="aspect-ratio: 16/9;">
+						<Image src={groupeLumiere} alt="Groupe Lumière"
+							class="w-full h-full object-cover object-center" />
+					</div>
+					<div class="p-5">
+						<h3 class="font-black uppercase leading-tight mb-1"
+							style="font-size: clamp(1rem, 2.5vw, 1.25rem);">GROUPE LUMIÈRE</h3>
+						<p class="font-bold uppercase tracking-wide text-sm mb-3"
+							style="color: var(--color-rose); font-family: Arial, Helvetica, sans-serif;">
+							Équipes techniques
+						</p>
+						<p class="text-body font-bold leading-relaxed"
+							style="font-family: Arial, Helvetica, sans-serif; color: rgba(255,255,255,0.8);">
+							Spécialistes de la sonographie lumineuse : création des
+							ambiances, programmation des éclairages, mapping visuel
+							et gestion des effets lumineux tout au long du festival.
+						</p>
+					</div>
+				</article>
+
+				<!-- Groupe Sécurité -->
+				<article class="bg-white/5">
+					<div class="rounded-t-2xl overflow-hidden w-full" style="aspect-ratio: 16/9;">
+						<Image src={groupeSecu} alt="Groupe Sécurité"
+							class="w-full h-full object-cover object-center" />
+					</div>
+					<div class="p-5">
+						<h3 class="font-black uppercase leading-tight mb-1"
+							style="font-size: clamp(1rem, 2.5vw, 1.25rem);">GROUPE SÉCURITÉ</h3>
+						<p class="font-bold uppercase tracking-wide text-sm mb-3"
+							style="color: var(--color-rose); font-family: Arial, Helvetica, sans-serif;">
+							Équipes techniques
+						</p>
+						<p class="text-body font-bold leading-relaxed"
+							style="font-family: Arial, Helvetica, sans-serif; color: rgba(255,255,255,0.8);">
+							Équipe en charge de la sûreté du site : gestion des
+							entrées, accompagnement des festivaliers, prévention
+							des risques et coordination avec les services d'urgence
+							pour garantir une expérience sécurisée durant toutes
+							les nuits du festival.
+						</p>
+					</div>
+				</article>
+			</div>
+		</div>
+	</section>
+
+	<!-- ——— CHARTE ——— -->
+	<section class="bg-black text-white py-16 px-4 border-t border-white/10">
+		<div class="max-w-4xl mx-auto text-center">
+			<p class="font-bold uppercase tracking-wide mb-2"
+				style="color: var(--color-rose); font-family: Arial, Helvetica, sans-serif; font-size: clamp(0.75rem, 2vw, 0.875rem);">
+				Valeurs &amp; thématique de l'édition
+			</p>
+			<h2 class="text-section-title font-black uppercase leading-none mb-10">CHARTE</h2>
+
+			<p class="text-body font-bold leading-relaxed mb-12 mx-auto"
+				style="font-family: Arial, Helvetica, sans-serif; max-width: 42rem;">
+				Le festival Lumimix repose sur des valeurs essentielles
+				qui guident chaque édition :
+				<span style="color: var(--color-rose);">
+					electro, reggae et autres styles émergents se rencontrent
+				</span>
+				pour que chacun se sente libre, respecté et bienvenu.
+			</p>
+
+			<div class="grid sm:grid-cols-2 gap-6 text-left mb-12">
+				<div class="space-y-6">
+					<div>
+						<p class="font-bold uppercase tracking-wide mb-1"
+							style="color: var(--color-rose); font-family: Arial, Helvetica, sans-serif; font-size: 0.8rem;">
+							Fusion des vibrations
+						</p>
+						<p class="text-body font-bold leading-relaxed"
+							style="font-family: Arial, Helvetica, sans-serif; color: rgba(255,255,255,0.85);">
+							Electro, reggae et styles émergents se rencontrent pour
+							que chacun se sente libre, respecté et bienvenu.
+						</p>
+					</div>
+					<div>
+						<p class="font-bold uppercase tracking-wide mb-1"
+							style="color: var(--color-rose); font-family: Arial, Helvetica, sans-serif; font-size: 0.8rem;">
+							Créativité
+						</p>
+						<p class="text-body font-bold leading-relaxed"
+							style="font-family: Arial, Helvetica, sans-serif; color: rgba(255,255,255,0.85);">
+							Encourager les artistes, techniciens et festivaliers à
+							s'exprimer et se transformer à travers la musique.
+						</p>
+					</div>
+					<div>
+						<p class="font-bold uppercase tracking-wide mb-1"
+							style="color: var(--color-rose); font-family: Arial, Helvetica, sans-serif; font-size: 0.8rem;">
+							Respect et bienveillance
+						</p>
+						<p class="text-body font-bold leading-relaxed"
+							style="font-family: Arial, Helvetica, sans-serif; color: rgba(255,255,255,0.85);">
+							Garantir un cadre sécurisé, harmonieux et positif pour tous.
+						</p>
+					</div>
+				</div>
+				<div class="space-y-6">
+					<div>
+						<p class="font-bold uppercase tracking-wide mb-1"
+							style="color: var(--color-rose); font-family: Arial, Helvetica, sans-serif; font-size: 0.8rem;">
+							Ouverture
+						</p>
+						<p class="text-body font-bold leading-relaxed"
+							style="font-family: Arial, Helvetica, sans-serif; color: rgba(255,255,255,0.85);">
+							Des nuits et des atmosphères lumineuses qui se
+							transforment, où les émotions se mêlent en une
+							expérience sensorielle unique et profonde.
+						</p>
+					</div>
+					<div>
+						<p class="font-bold uppercase tracking-wide mb-1"
+							style="color: var(--color-rose); font-family: Arial, Helvetica, sans-serif; font-size: 0.8rem;">
+							Engagement écoresponsable
+						</p>
+						<p class="text-body font-bold leading-relaxed"
+							style="font-family: Arial, Helvetica, sans-serif; color: rgba(255,255,255,0.85);">
+							Sensibiliser le public à des pratiques plus durables et
+							réduire l'empreinte environnementale de l'événement.
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<h3 class="font-black uppercase leading-tight"
+				style="font-size: clamp(1.5rem, 5vw, 3rem);">
+				PLACÉ SOUS LE SIGNE<br />DE LA FUSION DES VIBRATIONS
+			</h3>
+		</div>
+	</section>
+
+</Layout>

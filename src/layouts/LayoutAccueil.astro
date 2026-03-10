@@ -1,0 +1,31 @@
+---
+import "../styles/global.css";
+import NavbarAccueil from "../components/NavbarAccueil.astro";
+import Footer from "../components/Footer.astro";
+import ArrowScroll from "../components/ArrowScroll.astro";
+const { title = "LUMIMIX 2026" } = Astro.props;
+---
+
+<!doctype html>
+<html id="html-root" lang="fr">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Asap:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap"
+			rel="stylesheet"
+		/>
+		<title>{title}</title>
+	</head>
+	<body class="bg-black text-white font-body">
+		<NavbarAccueil />
+		<main class="pt-16">
+			<slot />
+		</main>
+		<Footer />
+		<ArrowScroll />
+	</body>
+</html>
