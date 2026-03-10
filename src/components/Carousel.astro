@@ -2,25 +2,24 @@
 
 ---
 
-<div class="relative flex items-center gap-4">
+<div class="relative flex items-center gap-4" data-carousel>
     <button
-        id="carousel-prev"
-        aria-label="Precedent"
+        data-carousel-prev
+        aria-label="Précédent"
         class="shrink-0 w-11 h-11 rounded-full border-2 border-white/60 flex items-center justify-center text-white text-lg font-bold hover:border-rose hover:text-rose transition-colors"
     >
         &#8592;
     </button>
 
     <div
-        id="carousel-viewport"
-        class="flex-1 overflow-x-auto flex gap-8 snap-x snap-mandatory items-center justify-center py-4"
-        style="scrollbar-width: none; -ms-overflow-style: none;"
+        data-carousel-viewport
+        class="flex-1 overflow-x-hidden flex snap-x snap-mandatory items-center py-4"
     >
         <slot />
     </div>
 
     <button
-        id="carousel-next"
+        data-carousel-next
         aria-label="Suivant"
         class="shrink-0 w-11 h-11 rounded-full border-2 border-white/60 flex items-center justify-center text-white text-lg font-bold hover:border-rose hover:text-rose transition-colors"
     >
@@ -29,11 +28,21 @@
 </div>
 
 <script>
-    const viewport = document.getElementById("carousel-viewport");
-    document.getElementById("carousel-prev")?.addEventListener("click", () => {
-        viewport?.scrollBy({ left: -200, behavior: "smooth" });
-    });
-    document.getElementById("carousel-next")?.addEventListener("click", () => {
-        viewport?.scrollBy({ left: 200, behavior: "smooth" });
+    document.querySelectorAll("[data-carousel]").forEach((carousel) => {
+        const viewport = carousel.querySelector(
+            "[data-carousel-viewport]",
+        ) as HTMLElement;
+        const prev = carousel.querySelector("[data-carousel-prev]");
+        const next = carousel.querySelector("[data-carousel-next]");
+
+        const scrollByOne = (dir: number) => {
+            const itemWidth =
+                (viewport?.firstElementChild as HTMLElement)?.offsetWidth ??
+                200;
+            viewport?.scrollBy({ left: dir * itemWidth, behavior: "smooth" });
+        };
+
+        prev?.addEventListener("click", () => scrollByOne(-1));
+        next?.addEventListener("click", () => scrollByOne(1));
     });
 </script>

@@ -4,3 +4,26 @@
     --color-rose: #F61FF1;
     --font-asap: "Asap", sans-serif;
 }
+
+@layer base {
+
+    /* Élimine complètement le scroll horizontal sur tout le site */
+    html,
+    body {
+        overflow-x: hidden !important;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    /* Cache les scrollbars sur les carousels */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        /* IE / Edge */
+        scrollbar-width: none;
+        /* Firefox */
+    }
+}
