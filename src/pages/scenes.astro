@@ -1,0 +1,65 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { pb } from "../../backend/backend.mjs";
+
+export function toSlug(name: string): string {
+    return name
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]+/g, "");
+}
+
+let scenes: any[] = [];
+try {
+    scenes = await pb.collection("scene").getFullList({ sort: "+nom_scene" });
+} catch (e) {
+    console.error("Erreur PocketBase:", e);
+}
+---
+
+<Layout title="Scènes — LUMIMIX 2026">
+    <!-- TITRE -->
+    <section class="bg-black text-white pt-14 pb-8 px-4 text-center">
+        <h1 class="text-page-title font-black uppercase leading-none">
+            SCÈNES
+        </h1>
+        <p class="text-page-title font-medium uppercase leading-none mt-3">
+            2026
+        </p>
+    </section>
+
+    <!-- LISTE -->
+    <section
+        class="bg-black px-6 md:px-16 pb-20 flex flex-col gap-16 max-w-3xl mx-auto"
+    >
+        {
+            scenes.map((scene) => {
+                const imgUrl = scene.photo_scene
+                    ? pb.files.getURL(scene, scene.photo_scene)
+                    : "";
+                const slug = toSlug(scene.nom_scene);
+                return (
+                    <a href={`/scenes/${slug}`} class="block group">
+                        {imgUrl && (
+                            <div
+                                class="rounded-2xl overflow-hidden w-full mb-5"
+                                style="aspect-ratio: 16/9;"
+                            >
+                                <img
+                                    src={imgUrl}
+                                    alt={scene.nom_scene}
+                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                    loading="lazy"
+                                />
+                            </div>
+                        )}
+                        <h2 class="text-white font-black uppercase text-section-title leading-tight">
+                            {scene.nom_scene.toUpperCase()}
+                        </h2>
+                    </a>
+                );
+            })
+        }
+    </section>
+</Layout>
