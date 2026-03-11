@@ -1,0 +1,230 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Infos pratiques — LUMIMIX 2026">
+    <!-- TITRE -->
+    <section class="bg-black text-white pt-14 pb-8 px-4 text-center">
+        <h1 class="text-page-title font-black uppercase leading-none">
+            INFOS PRATIQUES
+        </h1>
+    </section>
+
+    <!-- CONTENU -->
+    <section
+        class="bg-black text-white px-6 md:px-16 pb-20 max-w-3xl mx-auto flex flex-col gap-10"
+    >
+        <!-- Tarifs -->
+        <div>
+            <p
+                class="text-body-title uppercase tracking-widest text-sm mb-4"
+                style="color: var(--color-rose);"
+            >
+                Tarifs
+            </p>
+
+            <!-- Mobile : carousel flèches -->
+            <div class="md:hidden relative">
+                <div id="carousel-track" class="overflow-hidden rounded-2xl">
+                    <div
+                        id="carousel-inner"
+                        class="flex transition-transform duration-300"
+                        style="will-change: transform;"
+                    >
+                        {
+                            [
+                                { prix: "25", label: "PASS 1 NUIT" },
+                                { prix: "45", label: "PASS 2 NUITS" },
+                                { prix: "60", label: "PASS COMPLET" },
+                            ].map(({ prix, label }) => (
+                                <div
+                                    class="shrink-0 w-full rounded-2xl flex flex-col items-center justify-between py-16 px-8 gap-10"
+                                    style="background: #2F212E; border: 2px solid #F61FF1;"
+                                >
+                                    <p
+                                        class="font-black text-7xl"
+                                        style="color: #F61FF1; text-shadow: 0 0 24px #F61FF1;"
+                                    >
+                                        {prix} €
+                                    </p>
+                                    <button
+                                        type="button"
+                                        class="w-full py-2 px-4 rounded-full font-black uppercase tracking-widest text-xs text-white hover:opacity-80 transition-opacity"
+                                        style="background: #F61FF1;"
+                                    >
+                                        {label}
+                                    </button>
+                                </div>
+                            ))
+                        }
+                    </div>
+                </div>
+                <div class="flex justify-center items-center gap-6 mt-5">
+                    <button
+                        id="carousel-prev"
+                        type="button"
+                        class="w-10 h-10 rounded-full border-2 flex items-center justify-center text-white transition-colors"
+                        style="border-color: #F61FF1;"
+                        aria-label="Précédent">&#8592;</button
+                    >
+                    <div id="carousel-dots" class="flex gap-2">
+                        {
+                            [0, 1, 2].map((i) => (
+                                <span
+                                    class="carousel-dot w-2 h-2 rounded-full"
+                                    style={
+                                        i === 0
+                                            ? "background:#F61FF1"
+                                            : "background:#555"
+                                    }
+                                />
+                            ))
+                        }
+                    </div>
+                    <button
+                        id="carousel-next"
+                        type="button"
+                        class="w-10 h-10 rounded-full border-2 flex items-center justify-center text-white transition-colors"
+                        style="border-color: #F61FF1;"
+                        aria-label="Suivant">&#8594;</button
+                    >
+                </div>
+            </div>
+
+            <!-- Desktop : grille 3 colonnes -->
+            <div class="hidden md:grid grid-cols-3 gap-6">
+                {
+                    [
+                        { prix: "25", label: "PASS 1 NUIT" },
+                        { prix: "45", label: "PASS 2 NUITS" },
+                        { prix: "60", label: "PASS COMPLET" },
+                    ].map(({ prix, label }) => (
+                        <div
+                            class="rounded-2xl flex flex-col items-center justify-between py-16 px-8 gap-10"
+                            style="background: #2F212E; border: 2px solid #F61FF1;"
+                        >
+                            <p
+                                class="font-black text-7xl"
+                                style="color: #F61FF1; text-shadow: 0 0 24px #F61FF1;"
+                            >
+                                {prix} €
+                            </p>
+                            <button
+                                type="button"
+                                class="w-full py-2 px-4 rounded-full font-black uppercase tracking-widest text-xs text-white hover:opacity-80 transition-opacity"
+                                style="background: #F61FF1;"
+                            >
+                                {label}
+                            </button>
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+
+        <!-- Hébergements -->
+        <div>
+            <p
+                class="text-body-title uppercase tracking-widest text-sm mb-2"
+                style="color: var(--color-rose);"
+            >
+                Hébergements
+            </p>
+            <p class="text-body font-body text-white/90 leading-relaxed">
+                Hôtels partenaires à proximité du site, accessibles à pied ou en
+                navette.<br />
+                Campings : plusieurs options autour de la ville, avec zones dédiées
+                aux festivaliers.<br />
+                Aires camping-car : disponibles près du parking principal.<br />
+                Locations saisonnières : appartements et chambres d'hôtes dans les
+                environs.
+            </p>
+        </div>
+
+        <!-- Transport -->
+        <div>
+            <p
+                class="text-body-title uppercase tracking-widest text-sm mb-2"
+                style="color: var(--color-rose);"
+            >
+                Transport
+            </p>
+            <p class="text-body font-body text-white/90 leading-relaxed">
+                En train : gare la plus proche située à quelques minutes du
+                site, navettes prévues durant les soirs du festival.<br />
+                En voiture : accès direct par la nationale, parking gratuit et zones
+                de stationnement surveillées.<br />
+                Covoiturage : plateforme de partage mise en place pour favoriser la
+                mobilité durable.<br />
+                Navettes : départs réguliers depuis le centre-ville.
+            </p>
+        </div>
+
+        <!-- FAQ -->
+        <div>
+            <p
+                class="text-body-title uppercase tracking-widest text-sm mb-4"
+                style="color: var(--color-rose);"
+            >
+                FAQ
+            </p>
+            <div
+                class="flex flex-col gap-4 text-body font-body text-white/90 leading-relaxed"
+            >
+                <p>
+                    <span class="font-black text-white"
+                        >Puis-je entrer avec de la nourriture ou des boissons ?</span
+                    >{" "}
+                    Une petite bouteille d'eau est autorisée. Restauration disponible
+                    sur place.
+                </p>
+                <p>
+                    <span class="font-black text-white"
+                        >Le festival est-il accessible aux personnes à mobilité
+                        réduite ?</span
+                    >{" "}
+                    Oui, avec zones réservées et assistance sur demande.
+                </p>
+                <p>
+                    <span class="font-black text-white"
+                        >Y a-t-il un vestiaire ?</span
+                    >{" "}
+                    Oui, vestiaire sécurisé disponible chaque soir.
+                </p>
+                <p>
+                    <span class="font-black text-white"
+                        >Les mineurs peuvent-ils participer ?</span
+                    >{" "}
+                    Oui, accompagnés d'un adulte. Interdit aux moins de 16 ans après
+                    minuit.
+                </p>
+                <p>
+                    <span class="font-black text-white"
+                        >Les animaux sont-ils autorisés ?</span
+                    >{" "}
+                    Non, sauf chiens guides.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const inner = document.getElementById("carousel-inner") as HTMLElement;
+        const dots = document.querySelectorAll<HTMLElement>(".carousel-dot");
+        const total = 3;
+        let current = 0;
+        function goTo(index: number) {
+            current = (index + total) % total;
+            inner.style.transform = `translateX(-${current * 100}%)`;
+            dots.forEach((d, i) => {
+                d.style.background = i === current ? "#F61FF1" : "#555";
+            });
+        }
+        document
+            .getElementById("carousel-prev")
+            ?.addEventListener("click", () => goTo(current - 1));
+        document
+            .getElementById("carousel-next")
+            ?.addEventListener("click", () => goTo(current + 1));
+    </script>
+</Layout>
