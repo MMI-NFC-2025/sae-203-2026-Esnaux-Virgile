@@ -98,6 +98,10 @@ export async function isLoggedIn() {
     return pb.authStore.isValid;
 }
 
+
+// Fonctions annexes
+
+
 // Retourne la liste de tous les membres de l'équipe triés par nom
 export async function getMembres() {
     const records = await pb.collection('membre').getFullList({

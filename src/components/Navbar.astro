@@ -54,7 +54,7 @@ import "../styles/global.css";
 <!--  OVERLAY  -->
 <div
   id="nav-overlay"
-  class="fixed inset-0 z-40 bg-black hidden flex-col"
+  class="fixed inset-0 z-40 bg-black flex flex-col opacity-0 pointer-events-none transition-opacity duration-300"
   aria-hidden="true"
 >
   <div
@@ -133,7 +133,13 @@ import "../styles/global.css";
           aria-label="X"
           class="hover:opacity-70 transition-opacity"
         >
-          <img src={x.src} alt="X" width="24" height="24" class="md:w-16 md:h-16" />
+          <img
+            src={x.src}
+            alt="X"
+            width="24"
+            height="24"
+            class="md:w-16 md:h-16"
+          />
         </a>
         <a
           href="https://www.instagram.com/"
@@ -209,8 +215,8 @@ import "../styles/global.css";
   const overlay = document.getElementById("nav-overlay");
 
   function openMenu() {
-    overlay?.classList.remove("hidden");
-    overlay?.classList.add("flex");
+    overlay?.classList.remove("opacity-0", "pointer-events-none");
+    overlay?.classList.add("opacity-100");
     toggle?.setAttribute("aria-expanded", "true");
     toggle?.setAttribute("aria-label", "Fermer le menu");
     overlay?.setAttribute("aria-hidden", "false");
@@ -218,8 +224,8 @@ import "../styles/global.css";
   }
 
   function closeMenu() {
-    overlay?.classList.remove("flex");
-    overlay?.classList.add("hidden");
+    overlay?.classList.remove("opacity-100");
+    overlay?.classList.add("opacity-0", "pointer-events-none");
     toggle?.setAttribute("aria-expanded", "false");
     toggle?.setAttribute("aria-label", "Ouvrir le menu");
     overlay?.setAttribute("aria-hidden", "true");

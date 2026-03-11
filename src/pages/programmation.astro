@@ -1,0 +1,206 @@
+---
+import Layout from "../layouts/Layout.astro";
+import CardArtiste from "../components/CardArtiste.astro";
+import { pb } from "../../backend/backend.mjs";
+import { toSlug } from "./artistes/[id].astro";
+
+let artistes: any[] = [];
+try {
+    artistes = await pb.collection("artiste").getFullList({
+        sort: "+date_artiste",
+        expand: "scene_artiste",
+    });
+} catch (e) {
+    console.error("Erreur PocketBase:", e);
+}
+
+const moisFR = [
+    "JANV",
+    "FÉVR",
+    "MARS",
+    "AVR",
+    "MAI",
+    "JUIN",
+    "JUIL",
+    "AOUT",
+    "SEPT",
+    "OCT",
+    "NOV",
+    "DÉC",
+];
+
+function formatDay(dateStr: string): string {
+    const d = new Date(dateStr);
+    const day = d.getUTCDate().toString().padStart(2, "0");
+    const month = moisFR[d.getUTCMonth()];
+    return `${day} ${month}`;
+}
+
+function formatHeure(dateStr: string): string {
+    const d = new Date(dateStr);
+    const h = d.getUTCHours().toString().padStart(2, "0");
+    const m = d.getUTCMinutes().toString().padStart(2, "0");
+    return `${h}H${m}`;
+}
+
+const genres = [
+    ...new Set(artistes.map((a) => a.genre_artiste).filter(Boolean)),
+].sort() as string[];
+const horaires = [
+    ...new Set(
+        artistes.map((a) => formatHeure(a.date_artiste)).filter(Boolean),
+    ),
+].sort() as string[];
+const scenes = [
+    ...new Set(
+        artistes.map((a) => a.expand?.scene_artiste?.nom_scene).filter(Boolean),
+    ),
+].sort() as string[];
+---
+
+<Layout title="Programmation — LUMIMIX 2026">
+    <!-- TITRE -->
+    <section class="bg-black text-white pt-14 pb-8 px-4 text-center">
+        <h1 class="text-page-title font-black uppercase leading-none">
+            PROGRAMMATION
+        </h1>
+        <p class="text-page-title font-medium uppercase leading-none mt-3">
+            2026
+        </p>
+    </section>
+
+    <!-- FILTRES -->
+    <section class="bg-black px-4 pb-10 flex flex-col items-center gap-3">
+        <!-- Genre -->
+        <div class="relative">
+            <select
+                id="filter-genre"
+                class="appearance-none bg-transparent border border-white/60 text-white font-bold uppercase tracking-widest py-2 pl-6 pr-10 rounded-full cursor-pointer text-sm min-w-40 text-center"
+            >
+                <option value="">GENRES</option>
+                {
+                    genres.map((g) => (
+                        <option value={g}>{g.toUpperCase()}</option>
+                    ))
+                }
+            </select>
+            <span
+                class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-white text-xs"
+                >&#8964;</span
+            >
+        </div>
+
+        <!-- Horaire -->
+        <div class="relative">
+            <select
+                id="filter-horaire"
+                class="appearance-none bg-transparent border border-white/60 text-white font-bold uppercase tracking-widest py-2 pl-6 pr-10 rounded-full cursor-pointer text-sm min-w-40 text-center"
+            >
+                <option value="">HORAIRES</option>
+                {horaires.map((h) => <option value={h}>{h}</option>)}
+            </select>
+            <span
+                class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-white text-xs"
+                >&#8964;</span
+            >
+        </div>
+
+        <!-- Scènes -->
+        <div class="relative">
+            <select
+                id="filter-scene"
+                class="appearance-none bg-transparent border border-white/60 text-white font-bold uppercase tracking-widest py-2 pl-6 pr-10 rounded-full cursor-pointer text-sm min-w-40 text-center"
+            >
+                <option value="">SCÈNES</option>
+                {
+                    scenes.map((s) => (
+                        <option value={s}>{s.toUpperCase()}</option>
+                    ))
+                }
+            </select>
+            <span
+                class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-white text-xs"
+                >&#8964;</span
+            >
+        </div>
+    </section>
+
+    <!-- CARDS ARTISTES -->
+    <section
+        id="artistes-list"
+        class="bg-black px-4 pb-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+    >
+        {
+            artistes.map((artiste) => {
+                const day = formatDay(artiste.date_artiste);
+                const heure = formatHeure(artiste.date_artiste);
+                const sceneName =
+                    artiste.expand?.scene_artiste?.nom_scene ?? "";
+                const genre = artiste.genre_artiste ?? "";
+                const imgUrl = artiste.photo_artiste
+                    ? pb.files.getURL(artiste, artiste.photo_artiste)
+                    : "";
+                const slug = toSlug(artiste.nom_artiste);
+
+                return (
+                    <CardArtiste
+                        imgUrl={imgUrl}
+                        day={day}
+                        nom={artiste.nom_artiste}
+                        slug={slug}
+                        data-genre={genre}
+                        data-horaire={heure}
+                        data-scene={sceneName}
+                    />
+                );
+            })
+        }
+    </section>
+
+    <!-- Mention -->
+    <p class="text-white/50 text-center text-xs uppercase tracking-widest pb-8">
+        ET BIEN D'AUTRES ENCORE...
+    </p>
+
+    <!-- Télécharger PDF -->
+    <div class="flex justify-center pb-20 px-4">
+        <a
+            href="#"
+            class="border border-white text-white font-bold uppercase tracking-widest text-xs py-3 px-6 rounded-full hover:bg-white hover:text-black transition-colors inline-flex items-center gap-2"
+        >
+            TÉLÉCHARGER LE PROGRAMME EN PDF
+            <span class="text-base">&#8595;</span>
+        </a>
+    </div>
+</Layout>
+
+<script>
+    const cards = document.querySelectorAll<HTMLElement>(".artiste-card");
+    const selGenre = document.getElementById(
+        "filter-genre",
+    ) as HTMLSelectElement;
+    const selHoraire = document.getElementById(
+        "filter-horaire",
+    ) as HTMLSelectElement;
+    const selScene = document.getElementById(
+        "filter-scene",
+    ) as HTMLSelectElement;
+
+    function filterCards() {
+        const genre = selGenre.value;
+        const horaire = selHoraire.value;
+        const scene = selScene.value;
+
+        cards.forEach((card) => {
+            const match =
+                (!genre || card.dataset.genre === genre) &&
+                (!horaire || card.dataset.horaire === horaire) &&
+                (!scene || card.dataset.scene === scene);
+            card.style.display = match ? "" : "none";
+        });
+    }
+
+    selGenre.addEventListener("change", filterCards);
+    selHoraire.addEventListener("change", filterCards);
+    selScene.addEventListener("change", filterCards);
+</script>
