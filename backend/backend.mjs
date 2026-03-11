@@ -1,5 +1,5 @@
 import PocketBase from 'pocketbase';
-export const pb = new PocketBase('http://127.0.0.1:8090/');
+export const pb = new PocketBase('https://sae203.luminix.virgile-esnaux.fr:443'); // Port sur lequel PocketBase est lancé sur le VPS
 
 // Retourne la liste de tous les artistes triés par date de représentation
 export async function getArtistesByDate() {
@@ -75,7 +75,6 @@ export async function upsertRecord(type, data, id = null) {
 // Commande utilisateur 
 
 // Connecte un utilisateur avec son email et son mot de passe
-// Retourne les données de l'utilisateur connecté + le token
 export async function login(email, password) {
     const authData = await pb.collection('users').authWithPassword(email, password);
     return authData;
@@ -87,7 +86,6 @@ export async function logout() {
 }
 
 // Crée un nouveau compte utilisateur
-// data doit contenir : email, password, passwordConfirm (et optionnellement name)
 export async function register(data) {
     const record = await pb.collection('users').create(data);
     return record;
