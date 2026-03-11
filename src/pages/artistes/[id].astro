@@ -1,7 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import CardArtiste from "../../components/CardArtiste.astro";
 import { pb } from "../../../backend/backend.mjs";
-import type { GetStaticPaths } from "astro";
 
 export function toSlug(name: string): string {
     return name
@@ -11,50 +11,208 @@ export function toSlug(name: string): string {
         .replace(/[^a-z0-9]+/g, "");
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-    const artistes = await pb.collection("artiste").getFullList({
+const moisFR = [
+    "JANV",
+    "FÉVR",
+    "MARS",
+    "AVR",
+    "MAI",
+    "JUIN",
+    "JUIL",
+    "AOUT",
+    "SEPT",
+    "OCT",
+    "NOV",
+    "DÉC",
+];
+
+function formatDay(dateStr: string): string {
+    const d = new Date(dateStr);
+    return `${d.getUTCDate().toString().padStart(2, "0")} ${moisFR[d.getUTCMonth()]}`;
+}
+
+function formatHeure(dateStr: string): string {
+    const d = new Date(dateStr);
+    return `${d.getUTCHours().toString().padStart(2, "0")}H${d.getUTCMinutes().toString().padStart(2, "0")}`;
+}
+
+const { id } = Astro.params;
+
+let artiste: any = null;
+let allArtistes: any[] = [];
+
+try {
+    allArtistes = await pb.collection("artiste").getFullList({
         expand: "scene_artiste",
     });
+    artiste = allArtistes.find((a) => toSlug(a.nom_artiste) === id) ?? null;
+} catch (e) {
+    console.error("Erreur PocketBase:", e);
+}
 
-    return artistes.map((artiste) => ({
-        params: { id: toSlug(artiste.nom_artiste) },
-        props: { artiste },
-    }));
-};
-
-const { artiste } = Astro.props as { artiste: any };
+if (!artiste) {
+    return Astro.redirect("/artistes");
+}
 
 const imgUrl = artiste.photo_artiste
     ? pb.files.getURL(artiste, artiste.photo_artiste)
     : "";
+
+const galerieUrls: string[] = (artiste.galerie_artiste ?? [])
+    .slice(0, 2)
+    .map((f: string) => pb.files.getURL(artiste, f));
+
+const sceneName: string = artiste.expand?.scene_artiste?.nom_scene ?? "";
+const day = formatDay(artiste.date_artiste);
+const heure = formatHeure(artiste.date_artiste);
+
+const autresArtistes = allArtistes.filter((a) => a.id !== artiste.id);
 ---
 
 <Layout title={`${artiste.nom_artiste} — LUMIMIX 2026`}>
-    <section class="bg-black text-white min-h-screen pt-16 px-4">
-        <div class="text-center py-14">
-            <h1 class="text-page-title font-black uppercase leading-none">
-                {artiste.nom_artiste.toUpperCase()}
-            </h1>
-        </div>
+    <!-- ─── HERO ─────────────────────────────────────────────── -->
+    <section
+        class="relative w-full overflow-hidden -mt-16"
+        style="height: clamp(480px, 85vh, 750px);"
+    >
         {
             imgUrl && (
-                <div class="max-w-xl mx-auto rounded-2xl overflow-hidden">
-                    <img
-                        src={imgUrl}
-                        alt={artiste.nom_artiste}
-                        class="w-full object-cover"
-                        loading="eager"
-                    />
+                <img
+                    src={imgUrl}
+                    alt={artiste.nom_artiste}
+                    class="absolute inset-0 w-full h-full object-cover object-center"
+                    loading="eager"
+                />
+            )
+        }
+
+        <!-- Gradient -->
+        <div
+            class="absolute inset-0 bg-linear-to-t from-black/90 via-black/30 to-black/50"
+        >
+        </div>
+
+        <!-- Centre : badge date + nom + retour -->
+        <div
+            class="absolute inset-0 flex flex-col items-center justify-center px-4 z-10 text-center pt-16"
+        >
+            <!-- Badge date rose -->
+            <div
+                class="bg-rose text-white font-medium text-sm md:text-sm uppercase px-4 py-1 rounded-xl tracking-widest mb-4"
+            >
+                {day}
+            </div>
+            <!-- Nom -->
+            <h1
+                class="text-page-title font-body-title font-bold uppercase leading-none text-white drop-shadow-lg mb-5"
+            >
+                {artiste.nom_artiste.toUpperCase()}
+            </h1>
+            <!-- Retour -->
+            <a
+                href="/artistes"
+                class="text-white text-xs md:text-sm uppercase tracking-widest underline underline-offset-4 hover:text-rose transition-colors"
+            >
+                ← Retour
+            </a>
+        </div>
+
+        <!-- Badge scène (droite, surélevé, arrondi bas-gauche) -->
+        {
+            sceneName && (
+                <div
+                    class="absolute right-0 z-10 bg-rose text-white font-black uppercase tracking-widest shadow-lg px-6 py-4 text-sm md:text-base"
+                    style="bottom: 10%; border-radius: 12px 0 0 12px;"
+                >
+                    {sceneName.toUpperCase()}
                 </div>
             )
         }
-        <div class="text-center mt-10">
-            <a
-                href="/programmation"
-                class="text-white/50 uppercase tracking-widest text-sm hover:text-rose transition-colors"
-            >
-                ← Retour à la programmation
-            </a>
-        </div>
     </section>
+
+    <!-- ─── DESCRIPTION ──────────────────────────────────────── -->
+    <section class="bg-black text-white px-6 md:px-16 py-14 max-w-3xl mx-auto">
+        {
+            artiste.genre_artiste && (
+                <p
+                    class="text-body-title font-body font-bold uppercase mb-4"
+                    style="color: var(--color-rose);"
+                >
+                    {artiste.genre_artiste.toUpperCase()}
+                </p>
+            )
+        }
+        {
+            artiste.description_artiste && (
+                <p class="text-body leading-relaxed font-body text-white/90">
+                    {artiste.description_artiste}
+                </p>
+            )
+        }
+    </section>
+
+    <!-- ─── GALERIE DIAGONALE ────────────────────────────────── -->
+    {
+        galerieUrls.length > 0 && (
+            <section class="bg-black px-6 pb-20 flex justify-center">
+                <div class="relative" style="width: 280px; height: 340px;">
+                    {galerieUrls[0] && (
+                        <div
+                            class="absolute w-48 h-64 md:w-52 md:h-72 rounded-2xl overflow-hidden shadow-2xl"
+                            style="top: 0; left: 0; transform: rotate(-4deg); z-index: 1;"
+                        >
+                            <img
+                                src={galerieUrls[0]}
+                                alt=""
+                                class="w-full h-full object-cover"
+                                loading="lazy"
+                            />
+                        </div>
+                    )}
+                    {galerieUrls[1] && (
+                        <div
+                            class="absolute w-48 h-64 md:w-52 md:h-72 rounded-2xl overflow-hidden shadow-2xl"
+                            style="bottom: 0; right: 0; transform: rotate(3deg); z-index: 2;"
+                        >
+                            <img
+                                src={galerieUrls[1]}
+                                alt=""
+                                class="w-full h-full object-cover"
+                                loading="lazy"
+                            />
+                        </div>
+                    )}
+                </div>
+            </section>
+        )
+    }
+
+    <!-- ─── AUTRES ARTISTES ──────────────────────────────────── -->
+    {
+        autresArtistes.length > 0 && (
+            <section class="px-2 pb-20">
+                <div class="bg-white rounded-3xl p-4 md:p-8">
+                    <p class="text-black font-body-title font-bold uppercase tracking-widest text-xl mb-4 text-center">
+                        à découvrir
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+                        {autresArtistes.map((a) => {
+                            const aImgUrl = a.photo_artiste
+                                ? pb.files.getURL(a, a.photo_artiste)
+                                : "";
+                            return (
+                                <CardArtiste
+                                    imgUrl={aImgUrl}
+                                    day={formatDay(a.date_artiste)}
+                                    nom={a.nom_artiste}
+                                    slug={toSlug(a.nom_artiste)}
+                                    small={true}
+                                />
+                            );
+                        })}
+                    </div>
+                </div>
+            </section>
+        )
+    }
 </Layout>
