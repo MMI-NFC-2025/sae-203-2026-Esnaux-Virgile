@@ -1,0 +1,257 @@
+---
+import Layout from "../layouts/Layout.astro";
+import facebook from "../assets/img/facebook.svg";
+import instagram from "../assets/img/instagram.svg";
+import x from "../assets/img/x.svg";
+import tiktok from "../assets/img/tiktok.svg";
+import youtube from "../assets/img/youtube.svg";
+---
+
+<Layout title="Contact — LUMIMIX 2026">
+    <!-- TITRE -->
+    <section class="bg-black text-white pt-14 pb-8 px-4 text-center">
+        <h1 class="text-page-title font-black uppercase leading-none">
+            CONTACT
+        </h1>
+    </section>
+
+    <!-- CONTENU -->
+    <section
+        class="bg-black text-white px-6 md:px-16 pb-20 max-w-3xl mx-auto flex flex-col gap-10"
+    >
+        <!-- Formulaire -->
+        <form
+            id="contact-form"
+            class="rounded-2xl p-8 flex flex-col gap-6"
+            style="background: #2F212E; border: 2px solid #F61FF1;"
+        >
+            <!-- Nom -->
+            <div class="flex flex-col gap-1">
+                <label
+                    for="nom"
+                    class="font-black text-base"
+                    style="color: #F61FF1;">Nom</label
+                >
+                <input
+                    id="nom"
+                    type="text"
+                    name="nom"
+                    placeholder="Entrez votre nom ici..."
+                    required
+                    class="bg-transparent border-b border-white/40 py-2 text-white placeholder:text-white/40 outline-none"
+                    style="border-bottom-color: rgba(255,255,255,0.4);"
+                />
+            </div>
+
+            <!-- Email -->
+            <div class="flex flex-col gap-1">
+                <label
+                    for="email"
+                    class="font-black text-base"
+                    style="color: #F61FF1;">Email</label
+                >
+                <input
+                    id="email"
+                    type="email"
+                    name="email"
+                    placeholder="Entrez votre Email ici..."
+                    required
+                    class="bg-transparent border-b border-white/40 py-2 text-white placeholder:text-white/40 outline-none"
+                    style="border-bottom-color: rgba(255,255,255,0.4);"
+                />
+            </div>
+
+            <!-- Sujet -->
+            <div class="flex flex-col gap-1">
+                <label
+                    for="sujet"
+                    class="font-black text-base"
+                    style="color: #F61FF1;">Sujet</label
+                >
+                <select
+                    id="sujet"
+                    name="sujet"
+                    required
+                    class="bg-transparent border-b border-white/40 py-2 text-white outline-none appearance-none cursor-pointer"
+                    style="background: transparent; border-bottom-color: rgba(255,255,255,0.4);"
+                >
+                    <option
+                        value=""
+                        disabled
+                        selected
+                        style="background: #2F212E; color: rgba(255,255,255,0.4);"
+                        >Entrez le sujet de votre message ici...</option
+                    >
+                    <option value="programmation" style="background: #2F212E;"
+                        >Programmation</option
+                    >
+                    <option value="artiste" style="background: #2F212E;"
+                        >Artiste</option
+                    >
+                    <option value="billet" style="background: #2F212E;"
+                        >Billet</option
+                    >
+                </select>
+            </div>
+
+            <!-- Message -->
+            <div class="flex flex-col gap-1">
+                <label
+                    for="message"
+                    class="font-black text-base"
+                    style="color: #F61FF1;">Message</label
+                >
+                <textarea
+                    id="message"
+                    name="message"
+                    rows="4"
+                    placeholder="Entrez votre message ici..."
+                    required
+                    class="bg-transparent border-b border-white/40 py-2 text-white placeholder:text-white/40 outline-none resize-none"
+                    style="border-bottom-color: rgba(255,255,255,0.4);"
+                ></textarea>
+            </div>
+
+            <!-- Submit -->
+            <button
+                type="submit"
+                class="w-full py-3 px-4 rounded-full font-black uppercase tracking-widest text-sm text-white hover:opacity-80 transition-opacity mt-2"
+                style="background: #F61FF1;"
+            >
+                Envoyer
+            </button>
+
+            <!-- Feedback -->
+            <p id="form-feedback" class="text-center text-sm hidden"></p>
+        </form>
+
+        <!-- Coordonnées -->
+        <div>
+            <p
+                class="text-body-title uppercase tracking-widest text-sm mb-2"
+                style="color: var(--color-rose);"
+            >
+                Coordonnées
+            </p>
+            <p class="text-body font-body text-white/90 leading-relaxed">
+                Adresse e-mail : lumimix@festival.com<br />
+                Numéro de téléphone : 07 85 16 52 23<br />
+                Adresse postale : Presqu'île de MALSAUCY Belfort
+            </p>
+        </div>
+
+        <!-- Réseaux sociaux -->
+        <div>
+            <p
+                class="text-body-title uppercase tracking-widest text-sm mb-2"
+                style="color: var(--color-rose);"
+            >
+                Réseaux sociaux
+            </p>
+            <div class="flex items-center gap-6">
+                <a
+                    href="https://www.facebook.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Facebook"
+                    class="hover:opacity-70 transition-opacity"
+                >
+                    <img
+                        src={facebook.src}
+                        alt="Facebook"
+                        width="48"
+                        height="48"
+                    />
+                </a>
+                <a
+                    href="https://x.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="X"
+                    class="hover:opacity-70 transition-opacity"
+                >
+                    <img src={x.src} alt="X" width="48" height="48" />
+                </a>
+                <a
+                    href="https://www.instagram.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Instagram"
+                    class="hover:opacity-70 transition-opacity"
+                >
+                    <img
+                        src={instagram.src}
+                        alt="Instagram"
+                        width="48"
+                        height="48"
+                    />
+                </a>
+                <a
+                    href="https://www.tiktok.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="TikTok"
+                    class="hover:opacity-70 transition-opacity"
+                >
+                    <img src={tiktok.src} alt="TikTok" width="48" height="48" />
+                </a>
+                <a
+                    href="https://www.youtube.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="YouTube"
+                    class="hover:opacity-70 transition-opacity"
+                >
+                    <img
+                        src={youtube.src}
+                        alt="YouTube"
+                        width="48"
+                        height="48"
+                    />
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const form = document.getElementById("contact-form") as HTMLFormElement;
+        const feedback = document.getElementById(
+            "form-feedback",
+        ) as HTMLParagraphElement;
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const data = Object.fromEntries(new FormData(form));
+
+            try {
+                const res = await fetch(
+                    "http://localhost:8090/api/collections/utilisateur/records",
+                    {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            nom_utilisateur: data.nom,
+                            email_utilisateur: data.email,
+                            sujet_utilisateur: data.sujet,
+                            message_utilisateur: data.message,
+                        }),
+                    },
+                );
+
+                if (res.ok) {
+                    feedback.textContent = "Message envoyé avec succès !";
+                    feedback.style.color = "#F61FF1";
+                    feedback.classList.remove("hidden");
+                    form.reset();
+                } else {
+                    throw new Error("Erreur serveur");
+                }
+            } catch {
+                feedback.textContent =
+                    "Une erreur est survenue. Veuillez réessayer.";
+                feedback.style.color = "#ff4444";
+                feedback.classList.remove("hidden");
+            }
+        });
+    </script>
+</Layout>
