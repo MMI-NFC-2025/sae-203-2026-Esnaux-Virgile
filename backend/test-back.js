@@ -6,7 +6,10 @@ import {
     infoScene,
     getArtistesByScene,
     getArtistesBySceneName,
-    upsertRecord,
+    createArtiste,
+    updateArtiste,
+    createScene,
+    updateScene,
     login,
     logout,
     register,
@@ -73,41 +76,41 @@ try {
 
 // Test : création d'un artiste
 try {
-    const nouvelArtiste = await upsertRecord('artiste', {
+    const nouvelArtiste = await createArtiste({
         nom_artiste: 'Test Artiste',
         date_artiste: '2026-07-01'
     });
-    console.log('upsertRecord (création artiste) :', nouvelArtiste);
+    console.log('createArtiste :', nouvelArtiste);
 } catch (e) {
     console.error(e);
 }
 
 // Test : modification d'un artiste existant
 try {
-    const artisteModifie = await upsertRecord('artiste', {
+    const artisteModifie = await updateArtiste('ID_ARTISTE_ICI', {
         nom_artiste: 'Artiste Modifié'
-    }, 'ID_ARTISTE_ICI');
-    console.log('upsertRecord (modification artiste) :', artisteModifie);
+    });
+    console.log('updateArtiste :', artisteModifie);
 } catch (e) {
     console.error(e);
 }
 
 // Test : création d'une scène
 try {
-    const nouvelleScene = await upsertRecord('scene', {
+    const nouvelleScene = await createScene({
         nom_scene: 'Nouvelle Scène'
     });
-    console.log(nouvelleScene);
+    console.log('createScene :', nouvelleScene);
 } catch (e) {
     console.error(e);
 }
 
 // Test : modification d'une scène existante
 try {
-    const sceneModifiee = await upsertRecord('scene', {
+    const sceneModifiee = await updateScene('ID_SCENE_ICI', {
         nom_scene: 'Scène Modifiée'
-    }, 'ID_SCENE_ICI');
-    console.log(sceneModifiee);
+    });
+    console.log('updateScene :', sceneModifiee);
 } catch (e) {
     console.error(e);
 }

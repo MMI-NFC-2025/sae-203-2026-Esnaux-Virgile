@@ -55,20 +55,28 @@ export async function getArtistesBySceneName(sceneName) {
     return records;
 }
 
-// Ajoute ou modifie les informations d'un artiste ou d'une scène selon le type fourni ('artiste' ou 'scene')
-export async function upsertRecord(type, data, id = null) {
-    if (type !== 'artiste' && type !== 'scene') {
-        throw new Error("Le type doit être 'artiste' ou 'scene'");
-    }
-    if (id) {
-        // Modification d'un enregistrement existant
-        const record = await pb.collection(type).update(id, data);
-        return record;
-    } else {
-        // Ajout d'un nouvel enregistrement
-        const record = await pb.collection(type).create(data);
-        return record;
-    }
+// Ajoute un nouvel artiste
+export async function createArtiste(data) {
+    const record = await pb.collection('artiste').create(data);
+    return record;
+}
+
+// Modifie un artiste existant en donnant son id en paramètre
+export async function updateArtiste(id, data) {
+    const record = await pb.collection('artiste').update(id, data);
+    return record;
+}
+
+// Ajoute une nouvelle scène
+export async function createScene(data) {
+    const record = await pb.collection('scene').create(data);
+    return record;
+}
+
+// Modifie une scène existante en donnant son id en paramètre
+export async function updateScene(id, data) {
+    const record = await pb.collection('scene').update(id, data);
+    return record;
 }
 
 
