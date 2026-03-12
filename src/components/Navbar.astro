@@ -66,7 +66,10 @@ import "../styles/global.css";
       >
         MENU
       </p>
-      <nav class="flex flex-col gap-3 md:gap-6">
+      <nav
+        aria-label="Navigation principale"
+        class="flex flex-col gap-3 md:gap-6"
+      >
         <a
           href="/"
           class="text-white font-black text-xl md:text-5xl uppercase hover:text-rose transition-colors"
@@ -108,7 +111,7 @@ import "../styles/global.css";
     <div>
       <button
         class="mt-10 mb-10 w-10 h-10 md:w-24 md:h-24 rounded-full border border-white/40 bg-white text-black text-xs md:text-xl font-bold hover:border-rose transition-colors"
-        >FR</button
+        aria-label="Langue : Français">FR</button
       >
       <div class="flex items-center gap-6 md:gap-10">
         <a

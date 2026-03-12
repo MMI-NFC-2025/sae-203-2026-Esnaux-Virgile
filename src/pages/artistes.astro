@@ -54,6 +54,7 @@ const noms = artistes.map((a) => a.nom_artiste).sort() as string[];
         <div class="relative">
             <select
                 id="filter-nom"
+                aria-label="Filtrer par nom d'artiste"
                 class="appearance-none bg-transparent border border-white/60 text-white font-bold uppercase tracking-widest py-2 pl-6 pr-10 rounded-full cursor-pointer text-sm min-w-40 text-center"
             >
                 <option value="">NOM</option>
@@ -69,6 +70,7 @@ const noms = artistes.map((a) => a.nom_artiste).sort() as string[];
     <!-- CARDS ARTISTES -->
     <section
         id="artistes-list"
+        aria-label="Liste des artistes"
         class="bg-black px-4 pb-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4"
     >
         {
