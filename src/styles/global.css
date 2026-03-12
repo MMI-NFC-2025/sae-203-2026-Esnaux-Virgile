@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @theme {
+    /* Couleur principale des titres de contenus */
     --color-rose: #F61FF1;
 
     /* ── Polices ── */
