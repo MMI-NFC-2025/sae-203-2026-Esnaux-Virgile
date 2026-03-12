@@ -118,7 +118,7 @@ for (const a of artistes) {
                     {[...byDate.entries()].map(([day, arts]) => (
                         <div class="mb-5">
                             <p
-                                class="font-black uppercase tracking-widest text-sm mb-2"
+                                class="font-black tracking-widest text-sm mb-2"
                                 style="color: var(--color-rose);"
                             >
                                 {day}
@@ -127,7 +127,7 @@ for (const a of artistes) {
                                 {arts.map((a) => (
                                     <a
                                         href={`/artistes/${toSlug(a.nom_artiste)}`}
-                                        class="text-white font-body text-body uppercase hover:text-rose transition-colors pl-4"
+                                        class="text-white font-body text-body hover:text-rose transition-colors pl-4"
                                     >
                                         {a.nom_artiste.toUpperCase()}
                                     </a>
@@ -144,7 +144,7 @@ for (const a of artistes) {
             scene.description_scene && (
                 <div class="mb-8">
                     <p
-                        class="font-black uppercase tracking-widest text-sm mb-3"
+                        class="font-black tracking-widest text-sm mb-3"
                         style="color: var(--color-rose);"
                     >
                         DESCRIPTION
@@ -161,7 +161,7 @@ for (const a of artistes) {
             scene.capacite_scene && (
                 <div>
                     <p
-                        class="font-black uppercase tracking-widest text-sm mb-2"
+                        class="font-black tracking-widest text-sm mb-2"
                         style="color: var(--color-rose);"
                     >
                         CAPACITÉ

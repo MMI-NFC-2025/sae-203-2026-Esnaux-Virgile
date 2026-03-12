@@ -46,7 +46,7 @@ try {
 				<!-- Colonne gauche -->
 				<div class="space-y-8">
 					<div>
-						<p class="font-bold uppercase tracking-wide mb-2"
+						<p class="font-bold tracking-wide mb-2"
 							style="color: var(--color-rose); font-family: Arial, Helvetica, sans-serif;">
 							Présentation du festival
 						</p>
@@ -62,7 +62,7 @@ try {
 						</p>
 					</div>
 					<div>
-						<p class="font-bold uppercase tracking-wide mb-2"
+						<p class="font-bold tracking-wide mb-2"
 							style="color: var(--color-rose); font-family: Arial, Helvetica, sans-serif;">
 							Sa création
 						</p>
@@ -80,7 +80,7 @@ try {
 				</div>
 				<!-- Colonne droite -->
 				<div>
-					<p class="font-bold uppercase tracking-wide mb-2"
+					<p class="font-bold tracking-wide mb-2"
 						style="color: var(--color-rose); font-family: Arial, Helvetica, sans-serif;">
 						Ses objectifs
 					</p>
@@ -103,8 +103,8 @@ try {
 	<section class="bg-black text-white py-12 px-4">
 		<div class="max-w-4xl mx-auto">
             
-			<h2 class="text-section-title font-black uppercase leading-none mb-3">ÉQUIPE</h2>
-			<p class="uppercase tracking-[0.2em] text-rose mb-5 text-sm">Organisateurs</p>
+			<h2 class="text-section-title font-black leading-none mb-3">ÉQUIPE</h2>
+			<p class=" tracking-[0.2em] text-rose mb-5 text-sm">Organisateurs</p>
 
 
 			<!-- Cards des membres -->
@@ -143,7 +143,7 @@ try {
 									</h3>
 									{m.role_membre && (
 										<p
-											class="font-bold italic uppercase tracking-wide mb-4"
+											class="font-bold italic tracking-wide mb-4"
 											style="color: var(--color-rose); font-family: Arial, Helvetica, sans-serif; font-size: clamp(0.75rem, 1.5vw, 0.875rem);"
 										>
 											{m.role_membre}
@@ -171,7 +171,7 @@ try {
 	<!-- ——— ÉQUIPES TECHNIQUES ——— -->
 	<section class="bg-black text-white py-12 px-4">
 		<div class="max-w-6xl mx-auto">
-			<h2 class="text-body font-black uppercase leading-none mb-10 text-rose">
+			<h2 class="text-body font-black leading-none mb-10 text-rose text-center sm:text-left">
 				ÉQUIPES TECHNIQUES
 			</h2>
 
@@ -180,16 +180,12 @@ try {
 				<article class="bg-black">
 					<div class="rounded-t-2xl overflow-hidden w-full" style="aspect-ratio: 16/9;">
 						<Image src={groupeSon} alt="Groupe Son"
-							class="w-full h-full object-cover object-center" />
+					class="w-full h-full object-cover object-center" loading="lazy" />
 					</div>
-					<div class="p-5">
+					<div class="p-5 text-center sm:text-left">
 						<h3 class="font-black uppercase leading-tight mb-1"
 							style="font-size: clamp(1rem, 2.5vw, 1.25rem);">GROUPE SON</h3>
-						<p class="font-bold uppercase tracking-wide text-sm mb-3"
-							style="color: var(--color-rose); font-family: Arial, Helvetica, sans-serif;">
-							Équipes techniques
-						</p>
-						<p class="text-body font-bold leading-relaxed"
+						<p class="text-body leading-relaxed"
 							style="font-family: Arial, Helvetica, sans-serif; color: rgba(255,255,255,);">
 							Équipe dédiée à l'ingénierie sonore : installation des
 							systèmes audio, gestion des balances, optimisation
@@ -202,16 +198,12 @@ try {
 				<article class="bg-black">
 					<div class="rounded-t-2xl overflow-hidden w-full" style="aspect-ratio: 16/9;">
 						<Image src={groupeLumiere} alt="Groupe Lumière"
-							class="w-full h-full object-cover object-center" />
+					class="w-full h-full object-cover object-center" loading="lazy" />
 					</div>
-					<div class="p-5">
+					<div class="p-5 text-center sm:text-left">
 						<h3 class="font-black uppercase leading-tight mb-1"
 							style="font-size: clamp(1rem, 2.5vw, 1.25rem);">GROUPE LUMIÈRE</h3>
-						<p class="font-bold uppercase tracking-wide text-sm mb-3"
-							style="color: var(--color-rose); font-family: Arial, Helvetica, sans-serif;">
-							Équipes techniques
-						</p>
-						<p class="text-body font-bold leading-relaxed"
+						<p class="text-body leading-relaxed"
 							style="font-family: Arial, Helvetica, sans-serif; color: rgba(255,255,255);">
 							Spécialistes de la sonographie lumineuse : création des
 							ambiances, programmation des éclairages, mapping visuel
@@ -224,16 +216,13 @@ try {
 				<article class="bg-black">
 					<div class="rounded-t-2xl overflow-hidden w-full" style="aspect-ratio: 16/9;">
 						<Image src={groupeSecu} alt="Groupe Sécurité"
-							class="w-full h-full object-cover object-center" />
+					class="w-full h-full object-cover object-center" loading="lazy" />
 					</div>
-					<div class="p-5">
+					<div class="p-5 text-center sm:text-left">
 						<h3 class="font-black uppercase leading-tight mb-1"
 							style="font-size: clamp(1rem, 2.5vw, 1.25rem);">GROUPE SÉCURITÉ</h3>
-						<p class="font-bold uppercase tracking-wide text-sm mb-3"
-							style="color: var(--color-rose); font-family: Arial, Helvetica, sans-serif;">
-							Équipes techniques
 						</p>
-						<p class="text-body font-bold leading-relaxed"
+						<p class="text-body leading-relaxed"
 							style="font-family: Arial, Helvetica, sans-serif; color: rgba(255,255,255);">
 							Équipe en charge de la sûreté du site : gestion des
 							entrées, accompagnement des festivaliers, prévention
@@ -248,10 +237,10 @@ try {
 	</section>
 
 	<!-- ——— CHARTE ——— -->
-	<section class="">
+	<section class="bg-black text-white py-12 px-4">
 		<div class="max-w-4xl mx-auto">
 			<h2 class="text-section-title font-black uppercase leading-none">CHARTE</h2>
-			<p class="font-bold uppercase tracking-wide mt-1 mb-10"
+			<p class="font-bold tracking-wide mt-1 mb-10"
 				style="color: var(--color-rose); font-family: Arial, Helvetica, sans-serif; font-size: clamp(0.75rem, 2vw, 0.875rem);">
 				Valeurs &amp; thématique de l'édition
 			</p>
@@ -266,19 +255,19 @@ try {
 					<ul class="space-y-3 mb-8 pl-4"
 						style="list-style: disc; color: rgba(255,255,255,0.85);">
 						<li class="text-body leading-relaxed">
-							<span class="font-bold">Diversité musicale :</span> promouvoir la rencontre entre électro, reggae et autres styles émergents.
+							Diversité musicale : promouvoir la rencontre entre électro, reggae et autres styles émergents.
 						</li>
 						<li class="text-body leading-relaxed">
-							<span class="font-bold">Ouverture et inclusion :</span> offrir un espace où chacun se sent libre, respecté et bienvenu.
+							Ouverture et inclusion : offrir un espace où chacun se sent libre, respecté et bienvenu.
 						</li>
 						<li class="text-body leading-relaxed">
-							<span class="font-bold">Créativité :</span> encourager les artistes, techniciens et festivaliers à exprimer pleinement leur univers.
+							Créativité : encourager les artistes, techniciens et festivaliers à exprimer pleinement leur univers.
 						</li>
 						<li class="text-body leading-relaxed">
-							<span class="font-bold">Respect et bienveillance :</span> garantir un cadre sécurisé, responsable et harmonieux pour tous.
+							Respect et bienveillance : garantir un cadre sécurisé, responsable et harmonieux pour tous.
 						</li>
 						<li class="text-body leading-relaxed">
-							<span class="font-bold">Engagement écoresponsable :</span> réduire l'impact environnemental et sensibiliser le public à des pratiques plus durables.
+							Engagement écoresponsable : réduire l'impact environnemental et sensibiliser le public à des pratiques plus durables.
 						</li>
 					</ul>
 
